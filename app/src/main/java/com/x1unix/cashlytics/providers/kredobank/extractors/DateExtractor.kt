@@ -1,7 +1,7 @@
 package com.x1unix.cashlytics.providers.kredobank.extractors
 
 import java.util.regex.Pattern;
-import com.x1unix.cashlytics.exceptions.NoMatchException
+import com.x1unix.cashlytics.exceptions.NoMatchFoundException
 import org.joda.time.LocalDateTime
 import org.joda.time.format.DateTimeFormat
 
@@ -21,7 +21,7 @@ class DateExtractor : MetadataExtractor<LocalDateTime> {
         val matcher = this.matcher.matcher(message)
 
         if ((!matcher.find()) || (matcher.groupCount() == 0)) {
-            throw NoMatchException("Cannot extract date metadata from the message")
+            throw NoMatchFoundException("Cannot extract date metadata from the message")
         }
 
         val dateString = matcher.group(0);
