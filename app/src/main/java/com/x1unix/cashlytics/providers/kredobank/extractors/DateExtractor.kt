@@ -2,6 +2,8 @@ package com.x1unix.cashlytics.providers.kredobank.extractors
 
 import java.util.regex.Pattern;
 import com.x1unix.cashlytics.exceptions.NoMatchFoundException
+import com.x1unix.cashlytics.providers.MetadataExtractor
+import com.x1unix.cashlytics.providers.MetadataParseResult
 import org.joda.time.LocalDateTime
 import org.joda.time.format.DateTimeFormat
 
@@ -17,7 +19,7 @@ class DateExtractor : MetadataExtractor<LocalDateTime> {
 
     private val formatter = DateTimeFormat.forPattern(KREDO_DATE_FORMAT)
 
-    override fun extractData(message: String) : LocalDateTime {
+    override fun extractData(message: String) : MetadataParseResult<LocalDateTime> {
         val matcher = this.matcher.matcher(message)
 
         if ((!matcher.find()) || (matcher.groupCount() == 0)) {
@@ -26,7 +28,9 @@ class DateExtractor : MetadataExtractor<LocalDateTime> {
 
         val dateString = matcher.group(0);
 
-        return formatter.parseLocalDateTime(dateString);
+        val dateTime = formatter.parseLocalDateTime(dateString);
+
+        return MetadataParseResult(dateTime, dateString, message);
     }
 
 }

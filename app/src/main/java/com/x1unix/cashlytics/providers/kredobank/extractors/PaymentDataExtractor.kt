@@ -3,6 +3,8 @@ package com.x1unix.cashlytics.providers.kredobank.extractors
 import com.x1unix.cashlytics.events.PaymentMetadata
 import com.x1unix.cashlytics.events.PaymentType
 import com.x1unix.cashlytics.exceptions.NoMatchFoundException
+import com.x1unix.cashlytics.providers.MetadataExtractor
+import com.x1unix.cashlytics.providers.MetadataParseResult
 import java.util.regex.Pattern
 
 /**
@@ -37,13 +39,18 @@ const val PURCHASE = "KUPIVLA"
 const val DEBIT = "SPYSANIA"
 const val REFILL = "ZARAKHUVANIA"
 
-class PaymentTypeExtractor : MetadataExtractor<PaymentMetadata> {
+/**
+ * Extracts payment type and receiver information
+ *
+ * @implements MetadataExtractor
+ */
+class PaymentDataExtractor : MetadataExtractor<PaymentMetadata> {
 
     private val transactionPattern = Pattern.compile(TRANSACTION_PATTERN)
 
     private val paymentPattern = Pattern.compile(PAYMENT_PATTERN)
 
-    override fun extractData(message: String) : PaymentMetadata {
+    override fun extractData(message: String) : MetadataParseResult<PaymentMetadata> {
         val transactionMatcher = transactionPattern.matcher(message)
 
         // Detect bank transaction action
@@ -56,7 +63,9 @@ class PaymentTypeExtractor : MetadataExtractor<PaymentMetadata> {
 
             val paymentType = getPaymentType(transactionMatcher.group(TRANSACTION_GROUP_SZ - 1))
 
-            return PaymentMetadata(paymentType, BANK_NAME)
+            val metadata = PaymentMetadata(paymentType, BANK_NAME)
+
+            return MetadataParseResult(metadata, transactionMatcher.group(0), message)
         }
 
         // Detect rest payment operations
@@ -65,17 +74,19 @@ class PaymentTypeExtractor : MetadataExtractor<PaymentMetadata> {
             // Check if all data from regex is available
             val groupSize = paymentMatcher.groupCount()
             if (groupSize < PAYMENT_GROUP_SZ) {
-                throw NoMatchFoundException("payment pattern found, but expected group size is not correct ")
+                throw NoMatchFoundException("payment pattern found, but expected group size is not correct ($groupSize)")
             }
 
             val paymentType = getPaymentType(transactionMatcher.group(2)) // Second group is payment type
             val paymentReceiver = transactionMatcher.group(4).trim()   // Forth group contains the payment receiver name
 
-            return PaymentMetadata(paymentType, paymentReceiver)
+            val metadata = PaymentMetadata(paymentType, paymentReceiver)
+
+            return MetadataParseResult(metadata, paymentMatcher.group(0), message);
         }
 
         // Otherwise - throw an error
-        throw NoMatchFoundException("no any pattern match found for the message");
+        throw NoMatchFoundException("no any pattern match found for this message");
     }
 
     private fun getPaymentType(origin: String) : PaymentType {
