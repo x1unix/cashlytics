@@ -12,5 +12,5 @@ data class MetadataParseResult<out T>(val result: T, val processedSubstring: Str
      * Next substring that left to process
      */
     val nextUnprocessedChunk: String
-        get() = origin.substring(origin.length).trim()
+        get() = origin.substring(processedSubstring.length).trim()
 }
