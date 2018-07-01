@@ -1,0 +1,13 @@
+package com.x1unix.cashlytics.kredobank.fixtures
+
+object Messages {
+    val Transfer = "KREDOBANK PEREKAZ 1000.00UAH Z  KARTY **2111 ZALISHOK 26174.35 UAH OVERDRAFT 50000.00 UAH DOSTUPNO 76174.35UAH"
+    val Withdrawal = "KREDOBANK ZNYATIA HOTIVKY 400.00UAH CARD**2111 ZALISHOK 25774.35 UAH OVERDRAFT50000.00 UAH DOSTUPNO 75774.35UAH"
+    val Purchase = "KUPIVLIA MAGAZINPRODUKTIVARSEN, UA 1267.18UAH CARD**2111 ZALISHOK 24507.17 UAH OVER 50000.00  DOSTUPNO 74507.17UAH"
+    val InternetPurchase = "INTERNET GOOGLE *Google Music, GB 59.00UAH CARD**2111 ZALISHOK 22805.84 UAH OVER 50000.00  DOSTUPNO 72805.84UAH"
+
+    fun withDate(dateString: String, message: String) : String
+    {
+        return "$dateString $message"
+    }
+}
