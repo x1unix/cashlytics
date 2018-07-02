@@ -54,5 +54,13 @@ class PaymentMetadataExtractorTest {
         assertEquals(result.result, expected)
     }
 
+    @Test
+    fun parseDebit() {
+        val expected = PaymentMetadata(PaymentType.Debit, BANK_NAME)
+        val result = extractor.extractData(Messages.Debit)
+
+        assertEquals(result.result, expected)
+    }
+
 
 }
