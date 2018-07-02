@@ -9,14 +9,23 @@ import org.junit.Test
 import org.junit.Assert.*
 
 class PaymentMetadataExtractorTest {
+    private val extractor = PaymentDataExtractor()
+
     @Test
     fun parseInternetPurchase() {
         val expected = PaymentMetadata(PaymentType.Internet, "GOOGLE *Google Music")
-        val extractor = PaymentDataExtractor()
-
         val result = extractor.extractData(Messages.InternetPurchase)
 
         assertEquals(result.result, expected)
-
     }
+
+    @Test
+    fun parseOfflinePurchase() {
+        val expected = PaymentMetadata(PaymentType.Purchase, "MAGAZINPRODUKTIVARSEN")
+        val result = extractor.extractData(Messages.Purchase)
+
+        assertEquals(result.result, expected)
+    }
+
+
 }
