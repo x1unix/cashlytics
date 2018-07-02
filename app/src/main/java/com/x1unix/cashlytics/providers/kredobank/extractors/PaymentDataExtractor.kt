@@ -61,7 +61,7 @@ class PaymentDataExtractor : MetadataExtractor<PaymentMetadata> {
                 throw NoMatchFoundException("transaction pattern found, but expected group size is not correct ($groupSize)")
             }
 
-            val paymentType = getPaymentType(transactionMatcher.group(TRANSACTION_GROUP_SZ - 1))
+            val paymentType = getPaymentType(transactionMatcher.group(2)) // Second group contains payment type
 
             val metadata = PaymentMetadata(paymentType, BANK_NAME)
 
@@ -84,6 +84,18 @@ class PaymentDataExtractor : MetadataExtractor<PaymentMetadata> {
             val metadata = PaymentMetadata(paymentType, paymentReceiver)
 
             return MetadataParseResult(metadata, paymentMatcher.group(0), message);
+        }
+
+        // Last case - try to get operation name from first word (used for refill messages)
+        // Currently is workaround.
+        val chunks = message.split(' ');
+        if (!chunks.isEmpty()) {
+            val type = getPaymentType(chunks[0])
+
+            if (type != PaymentType.Unknown) {
+                val metadata = PaymentMetadata(type, BANK_NAME)
+                return MetadataParseResult(metadata, chunks[0] + " ", message)
+            }
         }
 
         // Otherwise - throw an error
