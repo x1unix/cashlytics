@@ -8,4 +8,9 @@ package com.x1unix.cashlytics.payments
  * @param overdraft Overdraft
  * @param available Total available funds including overdraft
  */
-data class BalanceChange(val charged: Amount, val left: Amount, val overdraft: Amount, val available: Amount)
+data class BalanceChange(
+        var charged: Amount? = null,
+        var left: Amount? = null,
+        var overdraft: Amount? = null,
+        var available: Amount? = null
+)
