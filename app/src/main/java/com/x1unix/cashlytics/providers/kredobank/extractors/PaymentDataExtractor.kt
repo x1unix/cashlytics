@@ -77,8 +77,9 @@ class PaymentDataExtractor : MetadataExtractor<PaymentMetadata> {
                 throw NoMatchFoundException("payment pattern found, but expected group size is not correct ($groupSize)")
             }
 
-            val paymentType = getPaymentType(transactionMatcher.group(2)) // Second group is payment type
-            val paymentReceiver = transactionMatcher.group(4).trim()   // Forth group contains the payment receiver name
+            val paymentPrefix = paymentMatcher.group(3)
+            val paymentType = getPaymentType(paymentPrefix) // Second group is payment type
+            val paymentReceiver = paymentMatcher.group(4).trim()   // Forth group contains the payment receiver name
 
             val metadata = PaymentMetadata(paymentType, paymentReceiver)
 
