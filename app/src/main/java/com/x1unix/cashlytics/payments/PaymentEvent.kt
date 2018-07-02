@@ -7,11 +7,9 @@ import org.joda.time.LocalDateTime
  *
  * @param date a time when event occured
  * @param metadata payment metadata
- * @param charged amount of credits charged
- * @param balance balance left on account
- * @param overdraft amount of credit funds available
+ * @param changes balance change
  */
-data class PaymentEvent (var date: LocalDateTime, var metadata: PaymentMetadata, var charged: Int = 0, var balance: Int = 0, var overdraft: Int = 0) {
+data class PaymentEvent (val date: LocalDateTime, val metadata: PaymentMetadata, val changes: BalanceChange) {
     val type: PaymentType
         get() = metadata.type
 }
