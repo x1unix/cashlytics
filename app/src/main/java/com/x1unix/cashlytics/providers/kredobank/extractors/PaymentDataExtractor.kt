@@ -1,7 +1,7 @@
 package com.x1unix.cashlytics.providers.kredobank.extractors
 
-import com.x1unix.cashlytics.events.PaymentMetadata
-import com.x1unix.cashlytics.events.PaymentType
+import com.x1unix.cashlytics.payments.PaymentMetadata
+import com.x1unix.cashlytics.payments.PaymentType
 import com.x1unix.cashlytics.exceptions.NoMatchFoundException
 import com.x1unix.cashlytics.providers.MetadataExtractor
 import com.x1unix.cashlytics.providers.MetadataParseResult

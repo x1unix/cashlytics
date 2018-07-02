@@ -1,6 +1,6 @@
 package com.x1unix.cashlytics.providers.kredobank
 
-import com.x1unix.cashlytics.events.PaymentEvent
+import com.x1unix.cashlytics.payments.PaymentEvent
 import com.x1unix.cashlytics.providers.kredobank.extractors.DateExtractor
 import com.x1unix.cashlytics.providers.kredobank.extractors.PaymentDataExtractor
 

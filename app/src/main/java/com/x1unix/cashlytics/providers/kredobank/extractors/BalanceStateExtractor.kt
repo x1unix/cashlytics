@@ -1,5 +1,9 @@
 package com.x1unix.cashlytics.providers.kredobank.extractors
 
+import com.x1unix.cashlytics.payments.BalanceChange
+import com.x1unix.cashlytics.providers.MetadataExtractor
+import com.x1unix.cashlytics.providers.MetadataParseResult
+
 /**
  * Balance state regular expression.
  * Returns 3 matches with 4 groups
@@ -13,5 +17,8 @@ package com.x1unix.cashlytics.providers.kredobank.extractors
  */
 const val BALANCE_STATE_REGEXP = "(([\\d]+\\.[\\d]+)+([A-Z]{1,3})?(\\s[A-Z]{1,3}+)?)";
 
-class BalanceStateExtractor {
+class BalanceStateExtractor: MetadataExtractor<BalanceChange> {
+    override fun extractData(message: String): MetadataParseResult<BalanceChange> {
+        throw NotImplementedError()
+    }
 }
