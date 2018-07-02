@@ -35,7 +35,7 @@ const val BANK_NAME = "KREDOBANK"
 const val TRANSFER = "PEREKAZ"
 const val WITHDRAWAL = "ZNYATIA HOTIVKY"
 const val INTERNET = "INTERNET"
-const val PURCHASE = "KUPIVLA"
+const val PURCHASE = "KUPIVLIA"
 const val DEBIT = "SPYSANIA"
 const val REFILL = "ZARAKHUVANIA"
 
