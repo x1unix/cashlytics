@@ -13,7 +13,8 @@ class BalanceStateExtractorTest {
         val message = Balance.Transfer
         val expected = Balance.TransferChange
 
-        val got = extractor.extractData(message)
+        val parseResult = extractor.extractData(message)
+        val got = parseResult.result
 
         assertEquals(expected, got)
     }

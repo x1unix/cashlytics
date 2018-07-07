@@ -79,7 +79,7 @@ class BalanceStateExtractor: MetadataExtractor<BalanceChange> {
                 throw DataParseException("Group count mismatch for amount type $matchIndex", matcher.group())
             }
 
-            val amount = matcher.group(1)
+            val amount = matcher.group(2)
             val currency = matcher.group(3)
 
             return Amount(amount.toDouble(), currency)
