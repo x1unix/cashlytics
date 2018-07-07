@@ -6,12 +6,23 @@ import org.junit.Test
 import org.junit.Assert.*
 
 class BalanceStateExtractorTest {
-    private val extractor = BalanceStateExtractor();
+    private val extractor = BalanceStateExtractor()
 
     @Test
     fun parseBalanceFromTransferMessage() {
         val message = Balance.Transfer
         val expected = Balance.TransferChange
+
+        val parseResult = extractor.extractData(message)
+        val got = parseResult.result
+
+        assertEquals(expected, got)
+    }
+
+    @Test
+    fun parseBalanceFromWithdrawalMessage() {
+        val message = Balance.Withdrawal
+        val expected = Balance.WithdrawalChange
 
         val parseResult = extractor.extractData(message)
         val got = parseResult.result

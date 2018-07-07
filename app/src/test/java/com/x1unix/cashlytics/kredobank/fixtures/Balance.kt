@@ -16,6 +16,9 @@ object Balance {
     val TransferChange: BalanceChange
         get() = BalanceChange(uah(1000.0), uah(26174.35), uah(50000.0), uah(76174.35))
 
+    val WithdrawalChange: BalanceChange
+        get() = BalanceChange(uah(400.0), uah(25774.35), uah(50000.00), uah(75774.35))
+
     private fun uah(amount: Double): Amount {
         return Amount(amount, UAH)
     }
