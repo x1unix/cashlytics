@@ -29,4 +29,16 @@ class BalanceStateExtractorTest {
 
         assertEquals(expected, got)
     }
+
+    @Test
+    fun parseBalanceFromPurchaseMessage() {
+        val message = Balance.Purchase
+        val expected = Balance.PurchaseChange
+
+        val parseResult = extractor.extractData(message)
+        val got = parseResult.result
+
+        assertEquals(expected, got)
+    }
+
 }
