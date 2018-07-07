@@ -43,10 +43,16 @@ private const val OVERDRAFT = 2
 private const val AVAILABLE = 3
 
 /**
+ * Initial default currency
+ */
+private const val INITIAL_DEFAULT_CURRENCY = "UAH"
+
+/**
  * Balance state extractor
  */
 class BalanceStateExtractor: MetadataExtractor<BalanceChange> {
     private val balanceStatePattern = Pattern.compile(BALANCE_STATE_REGEXP)
+    private var defaultCurrency = INITIAL_DEFAULT_CURRENCY
 
     override fun extractData(message: String): MetadataParseResult<BalanceChange> {
         val matcher = balanceStatePattern.matcher(message)
@@ -66,6 +72,9 @@ class BalanceStateExtractor: MetadataExtractor<BalanceChange> {
             currentAmountIndex++
         }
 
+        // Reset default currency
+        defaultCurrency = INITIAL_DEFAULT_CURRENCY
+
         if (currentAmountIndex == 0) {
             throw NoMatchFoundException("Cannot find any balance information in string")
         }
@@ -74,8 +83,9 @@ class BalanceStateExtractor: MetadataExtractor<BalanceChange> {
     }
 
     private fun extractBalanceFromMatch(matcher: Matcher, matchIndex: Number): Amount {
+        val groupCount = matcher.groupCount()
         if ((matchIndex == CHARGED) || (matchIndex == AVAILABLE)) {
-            if (matcher.groupCount() < 3) {
+            if (groupCount < 3) {
                 throw DataParseException("Group count mismatch for amount type $matchIndex", matcher.group())
             }
 
@@ -86,12 +96,19 @@ class BalanceStateExtractor: MetadataExtractor<BalanceChange> {
         }
 
         if ((matchIndex == LEFT) || (matchIndex == OVERDRAFT)) {
-            if (matcher.groupCount() < 4) {
+            if (groupCount < 4) {
                 throw DataParseException("Group count mismatch for amount type $matchIndex", matcher.group())
             }
 
             val amount = matcher.group(2)
-            val currency = matcher.group(4)
+
+            // Currency is not populated for overdraft messages, so use default currency as fallback
+            val currency = matcher.group(4) ?: defaultCurrency
+
+            if (matchIndex == LEFT) {
+                // Set default currency from funds left result
+                defaultCurrency = currency
+            }
 
             return Amount(amount.toDouble(), currency.trim())
         }
