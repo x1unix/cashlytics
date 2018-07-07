@@ -1,7 +1,7 @@
 package com.x1unix.cashlytics.providers.kredobank.extractors
 
 import com.x1unix.cashlytics.exceptions.DataParseException
-import java.util.regex.Pattern;
+import java.util.regex.Pattern
 import com.x1unix.cashlytics.exceptions.NoMatchFoundException
 import com.x1unix.cashlytics.providers.MetadataExtractor
 import com.x1unix.cashlytics.providers.MetadataParseResult
@@ -27,10 +27,10 @@ class DateExtractor : MetadataExtractor<LocalDateTime> {
             throw NoMatchFoundException("Cannot extract date metadata from the message")
         }
 
-        val dateString = matcher.group(0);
+        val dateString = matcher.group(0)
 
         try {
-            val dateTime = formatter.parseLocalDateTime(dateString);
+            val dateTime = formatter.parseLocalDateTime(dateString)
 
             return MetadataParseResult(dateTime, dateString, message);
         } catch (ex: IllegalArgumentException) {
