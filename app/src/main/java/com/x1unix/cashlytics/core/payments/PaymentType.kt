@@ -1,4 +1,4 @@
-package com.x1unix.cashlytics.payments
+package com.x1unix.cashlytics.core.payments
 
 enum class PaymentType {
     Unknown,
