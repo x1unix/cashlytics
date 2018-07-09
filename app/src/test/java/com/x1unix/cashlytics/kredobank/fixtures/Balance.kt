@@ -1,7 +1,7 @@
 package com.x1unix.cashlytics.kredobank.fixtures
 
-import com.x1unix.cashlytics.payments.Amount
-import com.x1unix.cashlytics.payments.BalanceChange
+import com.x1unix.cashlytics.core.payments.Amount
+import com.x1unix.cashlytics.core.payments.BalanceChange
 
 object Balance {
     private const val UAH = "UAH"

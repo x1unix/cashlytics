@@ -1,9 +1,9 @@
 package com.x1unix.cashlytics.kredobank
 
-import com.x1unix.cashlytics.payments.PaymentMetadata
-import com.x1unix.cashlytics.payments.PaymentType
+import com.x1unix.cashlytics.core.payments.PaymentMetadata
+import com.x1unix.cashlytics.core.payments.PaymentType
 import com.x1unix.cashlytics.kredobank.fixtures.Messages
-import com.x1unix.cashlytics.providers.kredobank.extractors.PaymentDataExtractor
+import com.x1unix.cashlytics.core.providers.kredobank.extractors.PaymentDataExtractor
 import org.junit.Test
 
 import org.junit.Assert.*

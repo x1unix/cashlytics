@@ -1,9 +1,8 @@
 package com.x1unix.cashlytics.kredobank
 
-import com.x1unix.cashlytics.exceptions.DataParseException
+import com.x1unix.cashlytics.core.exceptions.DataParseException
 import com.x1unix.cashlytics.kredobank.fixtures.Messages
-import com.x1unix.cashlytics.providers.kredobank.extractors.DateExtractor
-import net.danlew.android.joda.JodaTimeAndroid
+import com.x1unix.cashlytics.core.providers.kredobank.extractors.DateExtractor
 import org.junit.Test
 
 import org.junit.Assert.*

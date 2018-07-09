@@ -1,7 +1,7 @@
 package com.x1unix.cashlytics.kredobank
 
 import com.x1unix.cashlytics.kredobank.fixtures.Balance
-import com.x1unix.cashlytics.providers.kredobank.extractors.BalanceStateExtractor
+import com.x1unix.cashlytics.core.providers.kredobank.extractors.BalanceStateExtractor
 import org.junit.Test
 import org.junit.Assert.*
 
