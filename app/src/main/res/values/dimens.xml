@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="pa_ic_padding">6dp</dimen>
+    <dimen name="transaction_card_height">86dp</dimen>
+    <dimen name="transaction_card_padding">10dp</dimen>
+    <dimen name="transaction_card_icon_margin">10dp</dimen>
+</resources>

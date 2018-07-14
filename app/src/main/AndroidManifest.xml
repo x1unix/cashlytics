@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
-        android:name="com.x1unix.cashlytics.Application"
+        android:name=".Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.AccountTransactionsActivity"></activity>
     </application>
-
 
 </manifest>
