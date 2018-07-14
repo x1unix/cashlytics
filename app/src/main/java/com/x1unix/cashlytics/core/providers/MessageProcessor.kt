@@ -21,6 +21,14 @@ class MessageProcessor {
         return handlers.keys
     }
 
+    fun getProviderProcessor(sender: String): MessageParser {
+        if (!handlers.containsKey(sender)) {
+            throw NoMatchFoundException("No provider available for '$sender")
+        }
+
+        return handlers[sender]!!
+    }
+
     fun extractPaymentInfoFromMessage(sender: String, message: String): PaymentEvent {
         if (!handlers.containsKey(sender)) {
             throw NoMatchFoundException("No provider available for '$sender")

@@ -2,4 +2,12 @@
     <string name="app_name">Cashlytics</string>
     <string name="pick_bank_name">Pick a bank name</string>
     <string name="payment_type_icon">Payment type</string>
+
+    <string name="pt_unknown">Unknown</string>
+    <string name="pt_internet">Internet purchase</string>
+    <string name="pt_purchase">Purchase</string>
+    <string name="pt_transfer">Money transfer</string>
+    <string name="pt_withdrawal">Withdrawal</string>
+    <string name="pt_refill">Refill</string>
+    <string name="pt_debit">Debit</string>
 </resources>

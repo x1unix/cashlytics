@@ -4,6 +4,7 @@ import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import android.provider.Telephony
+import com.x1unix.cashlytics.core.payments.PaymentEvent
 import com.x1unix.cashlytics.core.providers.MessageProcessor
 import com.x1unix.cashlytics.core.providers.internals.MessageProcessorConsumer
 import javax.inject.Inject
@@ -13,10 +14,10 @@ const val COLUMN_BODY = "body"
 const val COLUMN_CREATOR = "creator"
 
 class BankingMessagesService(var context: Context, var messageProcessor: MessageProcessor) {
-    fun getAllMessages(): MutableSet<Message> {
+    fun getProviderMessages(providerName: String): MutableSet<Message> {
 
         val messagesQuery = Uri.parse("content://sms/inbox")
-        val cursor = context.contentResolver.query(messagesQuery, null, null, null, null)
+        val cursor = context.contentResolver.query(messagesQuery, null, "address like '%$providerName%'", null, null)
 
         return constructMessages(cursor)
     }
@@ -36,7 +37,7 @@ class BankingMessagesService(var context: Context, var messageProcessor: Message
     }
 
     private fun constructMessages(cursor: Cursor): MutableSet<Message> {
-        val result = mutableSetOf<Message>();
+        val result = mutableSetOf<Message>()
         if (cursor.moveToFirst()) {
             do {
                 val body = cursor.getString(cursor.getColumnIndexOrThrow(Telephony.TextBasedSmsColumns.BODY))

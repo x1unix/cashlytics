@@ -1,5 +1,6 @@
 package com.x1unix.cashlytics
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.ActionBar
@@ -10,6 +11,8 @@ import android.widget.ListView
 import com.x1unix.cashlytics.core.Cashlytics
 import android.widget.Toast
 import butterknife.BindView
+import com.x1unix.cashlytics.ui.history.AccountTransactionsActivity
+import com.x1unix.cashlytics.ui.history.BANK_NAME
 
 
 class MainActivity : AppCompatActivity() {
@@ -17,6 +20,8 @@ class MainActivity : AppCompatActivity() {
 
 //    @BindView(R.id.providersList) lateinit var providersList: ListView
     lateinit var providersList: LinearLayout
+
+    private val context = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +62,12 @@ class MainActivity : AppCompatActivity() {
         override fun onClick(v: View) {
             val tag = v.tag
             Toast.makeText(applicationContext, "Picked $tag", Toast.LENGTH_SHORT).show()
+
+            val intent = Intent(context, AccountTransactionsActivity::class.java).apply {
+                putExtra(BANK_NAME, tag.toString())
+            }
+
+            startActivity(intent)
         }
     }
 
