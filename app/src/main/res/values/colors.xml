@@ -6,4 +6,5 @@
 
     <color name="success">#009688</color>
     <color name="danger">#DD2C00</color>
+    <color name="gray">#BBB</color>
 </resources>

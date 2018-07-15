@@ -18,7 +18,6 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.text.NumberFormat;
-import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 
@@ -29,7 +28,7 @@ import java.util.Locale;
  * I've spent 5 hours trying to get it work, but now is 7AM and I want to sleep.
  * Java is stablest solution for this shit.
  */
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
+public class RVHistoryFeedAdapter extends RecyclerView.Adapter<RVHistoryFeedAdapter.EventViewHolder> {
 
     private List<PaymentEvent> events;
 
@@ -37,7 +36,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EventViewHolder> {
 
     private DateTimeFormatter fmt;
 
-    RVAdapter(List<PaymentEvent> events) {
+    RVHistoryFeedAdapter(List<PaymentEvent> events) {
         this.events = events;
         currencyFormatter = NumberFormat.getCurrencyInstance(Locale.getDefault());
         fmt = DateTimeFormat.forPattern("dd MMM YYYY, k:m");

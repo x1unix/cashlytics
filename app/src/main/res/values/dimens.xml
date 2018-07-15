@@ -4,4 +4,6 @@
     <dimen name="transaction_card_height">86dp</dimen>
     <dimen name="transaction_card_padding">10dp</dimen>
     <dimen name="transaction_card_icon_margin">10dp</dimen>
+
+    <dimen name="poster_icon_size">135dp</dimen>
 </resources>

@@ -10,4 +10,10 @@
     <string name="pt_withdrawal">Withdrawal</string>
     <string name="pt_refill">Refill</string>
     <string name="pt_debit">Debit</string>
+
+    <string name="my_wallets">My wallets</string>
+    <string name="import_wallet">Import a wallet</string>
+    <string name="no_items_to_display">No items to display</string>
+    <string name="no_wallets_poster_text">It look like there is no wallets created yet</string>
+    <string name="add_new">Add a new</string>
 </resources>
