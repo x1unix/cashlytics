@@ -48,14 +48,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun readMessages() {
-        val providers = Cashlytics.messages.getListOfFoundProviders()
-        for (provider in providers) {
-            val b = Button(this)
-            b.tag = provider
-            b.text = provider
-            b.setOnClickListener(providerPick)
-            providersList.addView(b)
-        }
+//        val providers = Cashlytics.messages.getListOfFoundProviders()
+//        for (provider in providers) {
+//            val b = Button(this)
+//            b.tag = provider
+//            b.text = provider
+//            b.setOnClickListener(providerPick)
+//            providersList.addView(b)
+//        }
     }
 
     var providerPick: View.OnClickListener = object : View.OnClickListener {

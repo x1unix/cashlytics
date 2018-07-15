@@ -5,6 +5,7 @@ import android.database.Cursor
 import android.net.Uri
 import android.provider.Telephony
 import com.x1unix.cashlytics.core.payments.PaymentEvent
+import com.x1unix.cashlytics.core.payments.Wallet
 import com.x1unix.cashlytics.core.providers.MessageProcessor
 import com.x1unix.cashlytics.core.providers.internals.MessageProcessorConsumer
 import javax.inject.Inject
@@ -22,18 +23,18 @@ class BankingMessagesService(var context: Context, var messageProcessor: Message
         return constructMessages(cursor)
     }
 
-    fun getListOfFoundProviders(): List<String> {
+    fun getListOfFoundProviders(): List<Wallet> {
         val projection = arrayOf("*")
         val uri = Uri.parse("content://mms-sms/conversations/")
         val cursor = context.contentResolver.query(uri, projection, null, null, null)
 
         val conversations = constructMessages(cursor)
 
-        return conversations.map(fun (i: Message): String {
-            return i.sender
-        }).filter(fun (provider: String) : Boolean {
-            return messageProcessor.hasHandlerFor(provider)
-        })
+        return conversations.filter {
+            message: Message -> messageProcessor.hasHandlerFor(message.sender)
+        }.map { message: Message ->
+            Wallet.fromEvent(messageProcessor.getProviderProcessor(message.sender).parseMessage(message.contents))
+        }
     }
 
     private fun constructMessages(cursor: Cursor): MutableSet<Message> {
