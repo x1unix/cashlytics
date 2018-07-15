@@ -21,7 +21,8 @@ class WalletMapper : Mapper<Wallet> {
                 bankName = doc.getString(BANK_NAME),
                 status = Amount.fromString(doc.getString(STATUS)),
                 lastUpdated = LocalDateTime(doc.getDate(DATE)),
-                description = doc.getString(DESCRIPTION)
+                description = doc.getString(DESCRIPTION),
+                id = doc.id
         )
     }
 

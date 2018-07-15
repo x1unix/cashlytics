@@ -8,7 +8,7 @@ data class Wallet (
         val lastUpdated: LocalDateTime,
         val description: String = "SMS",
         var icon: Int = 0,
-        var id: Long = 0
+        var id: String = ""
 ) {
     companion object {
         fun fromEvent(event: PaymentEvent): Wallet {

@@ -9,7 +9,14 @@ import org.joda.time.LocalDateTime
  * @param metadata payment metadata
  * @param changes balance change
  */
-data class PaymentEvent (val bankName: String, val date: LocalDateTime, val metadata: PaymentMetadata, val changes: BalanceChange, val id: Long = 0) {
+data class PaymentEvent (
+        val bankName: String,
+        val date: LocalDateTime,
+        val metadata: PaymentMetadata,
+        val changes: BalanceChange,
+        val id: String = "",
+        val walletId: String = ""
+) {
     val type: PaymentType
         get() = metadata.type
 }
