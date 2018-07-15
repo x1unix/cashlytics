@@ -8,4 +8,11 @@ data class Amount(val amount: Double, val currency: String) {
     fun isNegative(): Boolean {
         return amount < 0
     }
+
+    companion object {
+        fun fromString(str: String): Amount {
+            val chunks = str.split(' ')
+            return Amount(chunks[0].toDouble(), chunks[1])
+        }
+    }
 }
