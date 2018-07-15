@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.x1unix.cashlytics.PermissionHelper
 import com.x1unix.cashlytics.R
-import com.x1unix.cashlytics.core.Cashlytics
 import com.x1unix.cashlytics.ui.Activity
 import com.x1unix.cashlytics.ui.common.PosterViewHolder
 import kotlinx.android.synthetic.main.activity_wallet_import.rvProviders
@@ -55,7 +54,7 @@ class WalletImportActivity : Activity() {
 
     private fun getAvailableItems() {
         try {
-            val providers = Cashlytics.messages.getListOfFoundProviders()
+            val providers = services.messages.getListOfFoundProviders()
 
             if (providers.isEmpty()) {
                 posterViewHolder.show()

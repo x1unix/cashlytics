@@ -2,11 +2,19 @@ package com.x1unix.cashlytics.ui
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.x1unix.cashlytics.Application
 import com.x1unix.cashlytics.R
+import com.x1unix.cashlytics.core.ServiceContainer
 
 abstract class Activity : AppCompatActivity() {
 
-    protected val allowGoBack = false;
+    protected val allowGoBack = false
+
+    /**
+     * Gets Cashlytics service container
+     */
+    protected val services: ServiceContainer
+        get() = (application as Application).serviceContainer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
