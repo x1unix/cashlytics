@@ -52,6 +52,10 @@ class WalletImportActivity : Activity() {
         }
     }
 
+    fun prepareRecycleView() {
+//        rvProviders.setOnClickListener { view -> vi }
+    }
+
     private fun getAvailableItems() {
         try {
             val providers = services.messages.getListOfFoundProviders()
@@ -64,7 +68,7 @@ class WalletImportActivity : Activity() {
             posterViewHolder.hide()
             rvProviders.visibility = View.VISIBLE
 
-            val adapter = RVWalletListAdapter(providers)
+            val adapter = WalletListAdapter(providers)
             rvProviders.adapter = adapter
 
         } catch (ex: Exception) {
