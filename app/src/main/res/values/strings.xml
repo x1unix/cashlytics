@@ -16,6 +16,13 @@
     <string name="no_items_to_display">No items to display</string>
     <string name="no_sms_found">No SMS found</string>
     <string name="no_wallets_poster_text">It look like there is no wallets created yet</string>
+    <string name="cannot_read_sms">Cannot read SMS</string>
+    <string name="sms_permissions_required">SMS permissions required</string>
+    <string name="sms_permissions_description">
+        This application requires SMS read access to get your balance information\n.
+        Click the button below to provide SMS permissions.
+    </string>
+    <string name="provide_permissions">Provide permissions</string>
     <string name="wallet_import_no_sms">There is no any SMS from bank that could be handled.</string>
     <string name="add_new">Add a new</string>
     <string name="more_info">More info</string>

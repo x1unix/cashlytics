@@ -36,7 +36,7 @@ public class RVWalletListAdapter extends RecyclerView.Adapter<RVWalletListAdapte
 
     @Override
     public WalletViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.transaction_list_item, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.bank_list_item, viewGroup, false);
         WalletViewHolder pvh = new WalletViewHolder(v);
         return pvh;
     }
@@ -49,6 +49,7 @@ public class RVWalletListAdapter extends RecyclerView.Adapter<RVWalletListAdapte
         walletViewHolder.setDescription(w.getDescription());
         walletViewHolder.setIcon(w.getIcon());
         walletViewHolder.setDate(formatEventDate(w.getLastUpdated()));
+        walletViewHolder.setAmount(w.getStatus());
     }
 
     @Override

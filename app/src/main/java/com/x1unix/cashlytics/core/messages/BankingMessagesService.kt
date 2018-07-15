@@ -32,9 +32,11 @@ class BankingMessagesService(var context: Context, var messageProcessor: Message
 
         return conversations.filter {
             message: Message -> messageProcessor.hasHandlerFor(message.sender)
-        }.map { message: Message ->
-            Wallet.fromEvent(messageProcessor.getProviderProcessor(message.sender).parseMessage(message.contents))
-        }
+        }.map (fun (m: Message): Wallet {
+            val provider = messageProcessor.getProviderProcessor(m.sender)
+            return Wallet.fromEvent(provider.parseMessage(m.contents))
+                    .setBrandIconResource(provider.brandIcon)
+        })
     }
 
     private fun constructMessages(cursor: Cursor): MutableSet<Message> {
