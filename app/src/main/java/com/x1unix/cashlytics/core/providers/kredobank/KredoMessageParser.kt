@@ -1,5 +1,6 @@
 package com.x1unix.cashlytics.core.providers.kredobank
 
+import com.x1unix.cashlytics.R
 import com.x1unix.cashlytics.core.payments.PaymentEvent
 import com.x1unix.cashlytics.core.providers.MessageParser
 import com.x1unix.cashlytics.core.providers.kredobank.extractors.BalanceStateExtractor
@@ -9,6 +10,9 @@ import com.x1unix.cashlytics.core.providers.kredobank.extractors.PaymentDataExtr
 class KredoMessageParser: MessageParser {
     override val sender: String
         get() = "KREDOBANK"
+
+    override val brandIcon: Int
+        get() = R.drawable.kredobank
 
     private val dateExtractor = DateExtractor()
     private val paymentDataExtractor = PaymentDataExtractor()
@@ -27,7 +31,7 @@ class KredoMessageParser: MessageParser {
         val parsedChanges = balanceStateExtractor.extractData(parsedMetadata.nextUnprocessedChunk)
         val balanceState = parsedChanges.result
 
-        return PaymentEvent(date, paymentMetadata, balanceState)
+        return PaymentEvent(sender, date, paymentMetadata, balanceState)
     }
 
 

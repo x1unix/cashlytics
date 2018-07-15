@@ -2,6 +2,7 @@ package com.x1unix.cashlytics.core.providers
 
 import com.x1unix.cashlytics.core.exceptions.NoMatchFoundException
 import com.x1unix.cashlytics.core.payments.PaymentEvent
+import com.x1unix.cashlytics.core.payments.Wallet
 import javax.inject.Inject
 
 class MessageProcessor {
@@ -27,6 +28,13 @@ class MessageProcessor {
         }
 
         return handlers[sender]!!
+    }
+
+    fun extractWalletInfoFromMessage(sender: String, message: String): Wallet {
+        val handler = getProviderProcessor(sender)
+        val event = handler.parseMessage(message)
+
+        return Wallet.fromEvent(event).setBrandIconResource(handler.brandIcon)
     }
 
     fun extractPaymentInfoFromMessage(sender: String, message: String): PaymentEvent {
