@@ -3,9 +3,12 @@ package com.x1unix.cashlytics.ui.wallet
 import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.x1unix.cashlytics.PermissionHelper
 import com.x1unix.cashlytics.R
+import com.x1unix.cashlytics.core.payments.Wallet
 import com.x1unix.cashlytics.ui.Activity
 import com.x1unix.cashlytics.ui.common.PosterViewHolder
 import kotlinx.android.synthetic.main.activity_wallet_import.rvProviders
@@ -52,8 +55,8 @@ class WalletImportActivity : Activity() {
         }
     }
 
-    fun prepareRecycleView() {
-//        rvProviders.setOnClickListener { view -> vi }
+    private fun onWalletClick(w: Wallet) {
+        Toast.makeText(this@WalletImportActivity, w.bankName, Toast.LENGTH_SHORT).show()
     }
 
     private fun getAvailableItems() {
@@ -68,7 +71,10 @@ class WalletImportActivity : Activity() {
             posterViewHolder.hide()
             rvProviders.visibility = View.VISIBLE
 
-            val adapter = WalletListAdapter(providers)
+            val adapter = WalletListAdapter(providers) {
+                onWalletClick(it)
+            }
+
             rvProviders.adapter = adapter
 
         } catch (ex: Exception) {

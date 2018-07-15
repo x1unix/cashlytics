@@ -14,7 +14,12 @@ import org.joda.time.LocalDateTime
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.format.DateTimeFormatter
 
-class WalletListAdapter(private var wallets: List<Wallet>): RecyclerView.Adapter<WalletListAdapter.WalletViewHolder>() {
+/**
+ * Wallets list recycle view adapter
+ *
+ * @param wallets list
+ */
+class WalletListAdapter(private var wallets: List<Wallet>, var clickListener: (Wallet) -> Unit): RecyclerView.Adapter<WalletListAdapter.WalletViewHolder>() {
     private var fmt: DateTimeFormatter = DateTimeFormat.forPattern("dd MMM YYYY, k:m")
 
     override fun getItemCount(): Int {
@@ -34,6 +39,7 @@ class WalletListAdapter(private var wallets: List<Wallet>): RecyclerView.Adapter
         walletViewHolder.setIcon(icon)
         walletViewHolder.setDate(formatEventDate(lastUpdated))
         walletViewHolder.setAmount(status)
+        walletViewHolder.bindEvents(wallets[i], clickListener)
     }
 
     private fun formatEventDate(dt: LocalDateTime): String {
@@ -71,6 +77,10 @@ class WalletListAdapter(private var wallets: List<Wallet>): RecyclerView.Adapter
 
         fun setDate(newDate: String) {
             displayedDate.text = newDate
+        }
+
+        fun bindEvents(item: Wallet, listener: (Wallet) -> Unit) = with(itemView) {
+            setOnClickListener{ listener(item) }
         }
     }
 }
