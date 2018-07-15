@@ -1,16 +1,18 @@
 package com.x1unix.cashlytics.core.storage.mappers
 
-import com.couchbase.lite.Document
-import com.couchbase.lite.MutableDocument
+import com.couchbase.lite.Dictionary
+import com.couchbase.lite.MutableDictionary
 import com.x1unix.cashlytics.core.payments.BalanceChange
 import com.x1unix.cashlytics.core.payments.PaymentEvent
 import com.x1unix.cashlytics.core.payments.PaymentMetadata
-import com.x1unix.cashlytics.core.storage.Mapper
 import org.joda.time.LocalDateTime
+import java.util.*
 
-class PaymentEventMapper : Mapper<PaymentEvent> {
-    override fun toDocument(item: PaymentEvent): MutableDocument {
-        return MutableDocument()
+class PaymentEventMapper : Mapper<PaymentEvent>() {
+    override val objectType = "paymentEvent"
+
+    override fun wrap(item: PaymentEvent): Dictionary {
+        return MutableDictionary()
                 .setString(BANK_NAME, item.bankName)
                 .setDate(DATE, item.date.toDate())
                 .setDictionary(METADATA, item.metadata.toDictionary())
@@ -18,20 +20,19 @@ class PaymentEventMapper : Mapper<PaymentEvent> {
                 .setString(WALLET_ID, item.walletId)
     }
 
-    override fun fromDocument(doc: Document): PaymentEvent {
-        val bankName = doc.getString(BANK_NAME)
-        val walletId = doc.getString(WALLET_ID)
-        val id = doc.id
-        val date = LocalDateTime(doc.getDate(DATE))
-        val metadata = PaymentMetadata.fromDictionary(doc.getDictionary(METADATA))
-        val changes = BalanceChange.fromDictionary(doc.getDictionary(CHANGES))
+    override fun unwrap(dict: Dictionary, itemId: String): PaymentEvent {
+        val bankName = dict.getString(BANK_NAME)
+        val walletId = dict.getString(WALLET_ID)
+        val date = LocalDateTime(dict.getDate(DATE))
+        val metadata = PaymentMetadata.fromDictionary(dict.getDictionary(METADATA))
+        val changes = BalanceChange.fromDictionary(dict.getDictionary(CHANGES))
 
         return PaymentEvent(
                 bankName,
                 date,
                 metadata,
                 changes,
-                id,
+                itemId,
                 walletId
         )
     }

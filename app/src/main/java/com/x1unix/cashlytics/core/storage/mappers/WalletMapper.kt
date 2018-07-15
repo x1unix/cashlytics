@@ -1,28 +1,29 @@
 package com.x1unix.cashlytics.core.storage.mappers
 
-import com.couchbase.lite.Document
-import com.couchbase.lite.MutableDocument
+import com.couchbase.lite.Dictionary
+import com.couchbase.lite.MutableDictionary
 import com.x1unix.cashlytics.core.payments.Amount
 import com.x1unix.cashlytics.core.payments.Wallet
-import com.x1unix.cashlytics.core.storage.Mapper
 import org.joda.time.LocalDateTime
 
-class WalletMapper : Mapper<Wallet> {
-    override fun toDocument(item: Wallet): MutableDocument {
-        return MutableDocument()
+class WalletMapper : Mapper<Wallet>() {
+    override val objectType = "wallet"
+
+    override fun wrap(item: Wallet): Dictionary {
+        return MutableDictionary()
                 .setString(BANK_NAME, item.bankName)
                 .setString(DESCRIPTION, item.description)
                 .setString(STATUS, item.status.toString())
                 .setDate(DATE, item.lastUpdated.toDate())
     }
 
-    override fun fromDocument(doc: Document): Wallet {
+    override fun unwrap(dict: Dictionary, itemId: String): Wallet {
         return Wallet(
-                bankName = doc.getString(BANK_NAME),
-                status = Amount.fromString(doc.getString(STATUS)),
-                lastUpdated = LocalDateTime(doc.getDate(DATE)),
-                description = doc.getString(DESCRIPTION),
-                id = doc.id
+                bankName = dict.getString(BANK_NAME),
+                status = Amount.fromString(dict.getString(STATUS)),
+                lastUpdated = LocalDateTime(dict.getDate(DATE)),
+                description = dict.getString(DESCRIPTION),
+                id = itemId
         )
     }
 
