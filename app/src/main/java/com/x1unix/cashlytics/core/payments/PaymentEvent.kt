@@ -15,7 +15,7 @@ data class PaymentEvent (
         val metadata: PaymentMetadata,
         val changes: BalanceChange,
         val id: String = "",
-        val walletId: String = ""
+        var walletId: String = ""
 ) {
     val type: PaymentType
         get() = metadata.type

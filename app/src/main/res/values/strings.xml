@@ -26,4 +26,7 @@
     <string name="wallet_import_no_sms">There is no any SMS from bank that could be handled.</string>
     <string name="add_new">Add a new</string>
     <string name="more_info">More info</string>
+    <string name="import_messages_title">Importing data</string>
+    <string name="import_messages_progress">Importing data from SMS, please wait</string>
+    <string name="wallet_import_error">Failed to import the wallet</string>
 </resources>
