@@ -14,15 +14,43 @@ const val COLUMN_THREAD_ID = "thread_id"
 const val COLUMN_BODY = "body"
 const val COLUMN_CREATOR = "creator"
 
+/**
+ * Provides access to data from SMS messages, such as list of bank conversations and operations.
+ *
+ * @param context Base application context
+ * @param messageProcessor Message processor service instance
+ */
 class BankingMessagesService(var context: Context, var messageProcessor: MessageProcessor) {
-    fun getProviderMessages(providerName: String): MutableSet<Message> {
 
+    /**
+     * Gets actions history for specified bank account from SMS conversation
+     *
+     * @param providerName SMS sender name (bank name)
+     */
+    fun getProviderHistory(providerName: String): List<PaymentEvent> {
+        val processor = messageProcessor.getProviderProcessor(providerName)
+        return getProviderMessages(providerName)
+                .map{i: Message -> processor.parseMessage(i.contents)}
+                .sortedWith(compareBy{it.date})
+    }
+
+    /**
+     * Gets all SMS messages from bank SMS conversation
+     *
+     * @param providerName Bank name
+     */
+    fun getProviderMessages(providerName: String): MutableSet<Message> {
         val messagesQuery = Uri.parse("content://sms/inbox")
         val cursor = context.contentResolver.query(messagesQuery, null, "address like '%$providerName%'", null, null)
 
         return constructMessages(cursor)
     }
 
+    /**
+     * Gets list of all found and recognised bank conversations
+     *
+     * @return Wallet created from bank conversation data
+     */
     fun getListOfFoundProviders(): List<Wallet> {
         val projection = arrayOf("*")
         val uri = Uri.parse("content://mms-sms/conversations/")
@@ -39,6 +67,9 @@ class BankingMessagesService(var context: Context, var messageProcessor: Message
         })
     }
 
+    /**
+     * Maps SMS metadata into message object
+     */
     private fun constructMessages(cursor: Cursor): MutableSet<Message> {
         val result = mutableSetOf<Message>()
         if (cursor.moveToFirst()) {

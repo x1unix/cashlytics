@@ -1,5 +1,6 @@
 package com.x1unix.cashlytics.core.providers
 
+import android.content.Context
 import com.x1unix.cashlytics.core.exceptions.NoMatchFoundException
 import com.x1unix.cashlytics.core.payments.PaymentEvent
 import com.x1unix.cashlytics.core.payments.Wallet
@@ -45,5 +46,19 @@ class MessageProcessor {
         val handler = handlers[sender]
 
         return handler!!.parseMessage(message)
+    }
+
+    companion object {
+
+        /**
+         * Creates a new processor with specified handlers
+         */
+        fun withHandlers(vararg parsers: MessageParser): MessageProcessor {
+            val processor = MessageProcessor()
+
+            processor.registerHandlers(*parsers)
+
+            return processor
+        }
     }
 }
