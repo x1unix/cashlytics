@@ -72,7 +72,10 @@ class WalletListAdapter(private var wallets: List<Wallet>, var clickListener: (W
             val isNegative = newAmount.isNegative()
 
             amount.text = newAmount.toString()
-            amount.setTextColor(if (isNegative) dangerColor else successColor)
+
+            if (isNegative) {
+                amount.setTextColor(dangerColor)
+            }
         }
 
         fun setDate(newDate: String) {
