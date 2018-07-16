@@ -16,7 +16,7 @@ abstract class Mapper<T> {
      * Object type name.
      * Used to identify object type in the bucket
      */
-    protected abstract val objectType: String
+    abstract val objectType: String
 
     /**
      * Random document ID for new documents
