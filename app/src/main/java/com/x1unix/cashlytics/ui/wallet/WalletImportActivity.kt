@@ -1,5 +1,6 @@
 package com.x1unix.cashlytics.ui.wallet
 
+import android.content.Intent
 import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -70,7 +71,7 @@ class WalletImportActivity : Activity() {
 
         dialog.show()
 
-        doAsync(exceptionHandler = {e -> dialog.hide(); onError(e)}) {
+        doAsync(exceptionHandler = {e -> dialog.cancel(); onError(e)}) {
             val walletId = services.storage.wallet.addItem(w)
 
             val events = services.messages.getProviderHistory(w.bankName)
@@ -84,6 +85,10 @@ class WalletImportActivity : Activity() {
                 dialog.hide()
                 dialog.cancel()
                 Log.i(TAG, "Successfully imported wallet ${w.bankName} with ${events.size} events")
+
+                val i = Intent()
+                i.putExtra(UPDATED, true)
+                setResult(android.app.Activity.RESULT_OK, i)
                 finish()
             }
         }
@@ -139,5 +144,9 @@ class WalletImportActivity : Activity() {
         posterViewHolder.setIcon(R.drawable.ic_sms)
         posterViewHolder.setActionListener { _ -> getHelp() }
         posterViewHolder.hide()
+    }
+
+    companion object {
+        const val UPDATED = "updated"
     }
 }
