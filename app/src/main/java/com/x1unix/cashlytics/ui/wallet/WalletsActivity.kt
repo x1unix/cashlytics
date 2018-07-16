@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import com.x1unix.cashlytics.R
 import com.x1unix.cashlytics.core.payments.Wallet
@@ -92,6 +93,16 @@ class WalletsActivity : Activity() {
     private fun openImportWizard() {
         val intent = Intent(this@WalletsActivity, WalletImportActivity::class.java)
         startActivityForResult(intent, 1)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item != null) {
+            when (item.itemId) {
+                R.id.action_wallet_import -> openImportWizard()
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
