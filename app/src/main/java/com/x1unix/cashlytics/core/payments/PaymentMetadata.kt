@@ -16,13 +16,7 @@ data class PaymentMetadata (val type: PaymentType, val receiver: String?) {
         const val RECEIVER = "receiver"
 
         fun fromDictionary(d: Dictionary): PaymentMetadata {
-            var type: PaymentType
-
-            try {
-                type = PaymentType.valueOf(d.getString(TYPE))
-            } catch (ex: IllegalArgumentException) {
-                type = PaymentType.Unknown
-            }
+            val type = PaymentType.fromString(d.getString(TYPE))
 
             val receiver = d.getString(RECEIVER)
 

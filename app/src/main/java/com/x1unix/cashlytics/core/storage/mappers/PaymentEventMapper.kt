@@ -40,7 +40,7 @@ class PaymentEventMapper : Mapper<PaymentEvent>() {
     companion object {
         const val BANK_NAME = "bankName"
         const val DATE = "date"
-        const val METADATA = "METADATA"
+        const val METADATA = "metadata"
         const val CHANGES = "changes"
         const val WALLET_ID = "walletId"
 

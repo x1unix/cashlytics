@@ -65,6 +65,6 @@ abstract class Repository<T>(protected val database: Database) {
      * Gets full property name with data property prefix
      */
     protected fun property(name: String): String {
-        return "${Mapper.OBJECT_TYPE}.$name"
+        return ".${Mapper.DATA}.$name"
     }
 }

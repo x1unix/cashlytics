@@ -7,5 +7,15 @@ enum class PaymentType(val value: String) {
     Transfer("transfer"),
     Withdrawal("withdrawal"),
     Refill("refill"),
-    Debit("debit")
+    Debit("debit");
+
+    companion object {
+        fun fromString(value: String): PaymentType {
+            try {
+                return PaymentType.valueOf(value.capitalize())
+            } catch (e: IllegalArgumentException) {
+                return PaymentType.Unknown
+            }
+        }
+    }
 }

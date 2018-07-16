@@ -1,5 +1,6 @@
 package com.x1unix.cashlytics.core.storage.repository
 
+import android.util.Log
 import com.couchbase.lite.*
 import com.x1unix.cashlytics.core.payments.PaymentEvent
 import com.x1unix.cashlytics.core.storage.mappers.Mapper
@@ -12,9 +13,13 @@ class HistoryRepository(db: Database) : Repository<PaymentEvent>(db) {
      * Gets history timeline for specified wallet
      */
     fun getTimeline(walletId: String): List<PaymentEvent> {
-        val results = getQuery(
+        val query = getQuery(
                 wheres = Expression.property(property(PaymentEventMapper.WALLET_ID)).equalTo(Expression.string(walletId))
-        ).execute()
+        )
+
+        Log.d("History", "Query: '${query.explain()}'")
+
+        val results = query.execute()
 
         return results.allResults().map { result -> mapper.fromResult(result) }
     }
