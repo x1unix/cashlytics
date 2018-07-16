@@ -75,11 +75,7 @@ class WalletImportActivity : Activity() {
             val walletId = services.storage.wallet.addItem(w)
 
             val events = services.messages.getProviderHistory(w.bankName)
-                    .map(fun (e: PaymentEvent): PaymentEvent {
-                        e.walletId = walletId
-                        return e
-                    })
-            services.storage.history.bulkAdd(events)
+            services.history.importData(walletId, events)
 
             uiThread {
                 dialog.hide()

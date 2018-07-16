@@ -8,9 +8,6 @@ import com.x1unix.cashlytics.R
 import com.x1unix.cashlytics.core.ServiceContainer
 
 abstract class Activity : AppCompatActivity() {
-
-    protected val allowGoBack = false
-
     /**
      * Gets Cashlytics service container
      */
@@ -26,7 +23,7 @@ abstract class Activity : AppCompatActivity() {
         setTitle(resources.getString(resourceId))
     }
 
-    protected fun setTitle(title: String) {
+    protected fun setTitle(title: String, allowGoBack: Boolean = false) {
         if (supportActionBar == null) {
             return
         }

@@ -9,6 +9,8 @@ import com.x1unix.cashlytics.R
 import com.x1unix.cashlytics.core.payments.Wallet
 import com.x1unix.cashlytics.ui.Activity
 import com.x1unix.cashlytics.ui.common.PosterViewHolder
+import com.x1unix.cashlytics.ui.common.ViewIntentContract
+import com.x1unix.cashlytics.ui.history.WalletHistoryActivity
 import com.x1unix.cashlytics.ui.wallet.WalletImportActivity.Companion.UPDATED
 import kotlinx.android.synthetic.main.activity_wallets.poster
 import kotlinx.android.synthetic.main.activity_wallets.rvWallets
@@ -91,8 +93,12 @@ class WalletsActivity : Activity() {
         onWalletFetch()
     }
 
-    fun onWalletClick(w: Wallet) {
+    private fun onWalletClick(w: Wallet) {
+        val i = Intent(this@WalletsActivity, WalletHistoryActivity::class.java)
+        i.putExtra(ViewIntentContract.BANK_NAME, w.bankName)
+        i.putExtra(ViewIntentContract.WALLET_ID, w.id)
 
+        startActivity(i)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

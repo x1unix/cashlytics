@@ -14,8 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
-        <activity android:name=".ui.history.AccountTransactionsActivity" />
+        <activity android:name=".ui.history.WalletHistoryActivity" />
         <activity android:name=".ui.wallet.WalletsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

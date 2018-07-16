@@ -4,29 +4,27 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.x1unix.cashlytics.R
 import com.x1unix.cashlytics.ui.Activity
+import com.x1unix.cashlytics.ui.common.ViewIntentContract
 import kotlinx.android.synthetic.main.activity_account_transactions.rvTransactions
 
-const val BANK_NAME = "bankName"
-
-class AccountTransactionsActivity : Activity() {
+class WalletHistoryActivity : Activity() {
 
     private lateinit var bankName: String
+
+    private lateinit var walletId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account_transactions)
 
-        if (intent != null && intent.hasExtra(BANK_NAME)) {
-            bankName = intent.getStringExtra(BANK_NAME)
-            initializeTransactionsView()
-            updateActionBar()
-            showProviderMessages(bankName)
-        }
-    }
+        if (intent != null && intent.hasExtra(ViewIntentContract.BANK_NAME)) {
+            bankName = intent.getStringExtra(ViewIntentContract.BANK_NAME)
+            walletId = intent.getStringExtra(ViewIntentContract.WALLET_ID)
 
-    private fun updateActionBar() {
-        supportActionBar!!.title = bankName
-        supportActionBar!!.show()
+            initializeTransactionsView()
+            setTitle(bankName, true)
+            loadWalletHistory(walletId)
+        }
     }
 
     private fun initializeTransactionsView() {
@@ -35,8 +33,8 @@ class AccountTransactionsActivity : Activity() {
         rvTransactions.layoutManager = llm
     }
 
-    private fun showProviderMessages(providerName: String) {
-        val events = services.messages.getProviderHistory(providerName)
+    private fun loadWalletHistory(walletId: String) {
+        val events = services.history.getWalletTimeline(walletId)
         val adapter = RVHistoryFeedAdapter(events)
         rvTransactions.adapter = adapter
     }
