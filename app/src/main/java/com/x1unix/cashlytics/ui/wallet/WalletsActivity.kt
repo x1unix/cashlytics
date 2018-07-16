@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
+import android.view.View
 import com.x1unix.cashlytics.R
 import com.x1unix.cashlytics.core.payments.Wallet
 import com.x1unix.cashlytics.ui.Activity
@@ -12,12 +13,13 @@ import com.x1unix.cashlytics.ui.common.PosterViewHolder
 import com.x1unix.cashlytics.ui.common.ViewIntentContract
 import com.x1unix.cashlytics.ui.history.WalletHistoryActivity
 import com.x1unix.cashlytics.ui.wallet.WalletImportActivity.Companion.UPDATED
-import kotlinx.android.synthetic.main.activity_wallets.poster
 import kotlinx.android.synthetic.main.activity_wallets.rvWallets
 
 class WalletsActivity : Activity() {
 
     private lateinit var posterViewHolder: PosterViewHolder
+
+    private lateinit var poster: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +29,15 @@ class WalletsActivity : Activity() {
         onWalletFetch()
     }
 
+    override fun onResume() {
+        Log.d(TAG, "Activity woke up")
+        poster = findViewById(R.id.poster)
+        posterViewHolder.bind(poster)
+        super.onResume()
+    }
+
     private fun prepareView() {
+        poster = findViewById(R.id.poster)
         posterViewHolder = PosterViewHolder(poster)
         val llm = LinearLayoutManager(this)
         rvWallets.layoutManager = llm
@@ -35,6 +45,11 @@ class WalletsActivity : Activity() {
     }
 
     private fun onWalletFetch() {
+        // PosterViewHolder lost all view references after onActivityResult occurs
+        // so we should re-mount it again.
+        // Keep this workaround until a better solution comes.
+        posterViewHolder.bind(poster)
+
         resetPoster()
 
         try {
@@ -55,6 +70,7 @@ class WalletsActivity : Activity() {
             rvWallets.adapter = adapter
 
         } catch (ex: Throwable) {
+            Log.e(TAG, ex.message)
             hideView(rvWallets)
             posterViewHolder.setTitle(R.string.wallet_fetch_error)
             posterViewHolder.setText(ex.message)

@@ -23,6 +23,14 @@ public class PosterViewHolder {
      * @param rootView Poster include
      */
     public PosterViewHolder(View rootView) {
+        bind(rootView);
+    }
+
+    /**
+     * Mounts view holder to a view
+     * @param rootView
+     */
+    public void bind(View rootView) {
         root = rootView;
         label = (TextView) rootView.findViewById(R.id.posterTitle);
         description = (TextView) rootView.findViewById(R.id.posterDescription);
