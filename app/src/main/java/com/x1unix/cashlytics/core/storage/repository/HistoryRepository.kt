@@ -15,7 +15,7 @@ class HistoryRepository(db: Database) : Repository<PaymentEvent>(db) {
     fun getTimeline(walletId: String): List<PaymentEvent> {
         val query = getQuery(
                 wheres = Expression.property(property(PaymentEventMapper.WALLET_ID)).equalTo(Expression.string(walletId))
-        )
+        ).orderBy(Ordering.property(property(PaymentEventMapper.DATE)).descending())
 
         Log.d("History", "Query: '${query.explain()}'")
 
