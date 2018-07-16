@@ -4,6 +4,7 @@ import android.content.Context
 import com.x1unix.cashlytics.core.messages.BankingMessagesService
 import com.x1unix.cashlytics.core.providers.MessageProcessor
 import com.x1unix.cashlytics.core.providers.kredobank.KredoMessageParser
+import com.x1unix.cashlytics.core.services.WalletService
 import com.x1unix.cashlytics.core.storage.Storage
 
 /**
@@ -28,4 +29,9 @@ class ServiceContainer(val context: Context) {
      * Storage container, provides access to data
      */
     val storage = Storage.withDefaults(context)
+
+    /**
+     * Provides access to wallets information
+     */
+    val wallets = WalletService(storage.wallet, messageProcessor)
 }
