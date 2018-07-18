@@ -10,6 +10,7 @@ import android.view.View
 import com.x1unix.cashlytics.R
 import com.x1unix.cashlytics.core.payments.Wallet
 import com.x1unix.cashlytics.ui.Activity
+import com.x1unix.cashlytics.ui.DebugActivity
 import com.x1unix.cashlytics.ui.common.PosterViewHolder
 import com.x1unix.cashlytics.ui.common.ViewIntentContract
 import com.x1unix.cashlytics.ui.history.WalletHistoryActivity
@@ -99,10 +100,16 @@ class WalletsActivity : Activity() {
         if (item != null) {
             when (item.itemId) {
                 R.id.action_wallet_import -> openImportWizard()
+                R.id.action_debug -> onDebug()
             }
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun onDebug() {
+        val intent = Intent(this@WalletsActivity, DebugActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

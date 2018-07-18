@@ -8,5 +8,10 @@
         app:showAsAction="always"
         android:icon="@drawable/ic_add"
         android:title="@string/import_wallet"/>
+    <item
+        android:id="@+id/action_debug"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_adb"
+        android:title="Debug" />
 
 </menu>

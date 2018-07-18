@@ -11,6 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import com.x1unix.cashlytics.Application
 import com.x1unix.cashlytics.ui.common.LayoutHelper
+import com.x1unix.cashlytics.ui.common.NotificationHelper
 import org.jetbrains.anko.doAsync
 
 
@@ -35,6 +36,7 @@ class MessageListener: BroadcastReceiver() {
         Log.i(TAG, "A new message received")
 
         val nm = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        val helper = NotificationHelper(context)
 
         try {
             val pdus = bundle.get("pdus") as Array<Any>
@@ -57,8 +59,8 @@ class MessageListener: BroadcastReceiver() {
                     wallets.addWalletEvent(myWallets[sender]!!, event)
                 }
 
-                val nofitication = LayoutHelper.buildNotification(context, event)
-                nm.notify(1, nofitication)
+                val notification = helper.buildNotification(context, event)
+                nm.notify(1, notification)
             }
 
             this.abortBroadcast()

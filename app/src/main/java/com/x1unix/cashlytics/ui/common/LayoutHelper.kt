@@ -34,7 +34,7 @@ object LayoutHelper {
         }
     }
 
-    private fun getCardIconResource(pt: PaymentType): Int {
+    fun getCardIconResource(pt: PaymentType): Int {
         return when (pt) {
             PaymentType.Transfer -> R.drawable.ic_pa_transfer
             PaymentType.Internet -> R.drawable.ic_pa_web
@@ -42,26 +42,5 @@ object LayoutHelper {
             PaymentType.Withdrawal -> R.drawable.ic_pa_withdrawal
             else -> R.drawable.ic_pa_common
         }
-    }
-
-    fun buildNotification(c: Context, event: PaymentEvent): Notification {
-        val intent = Intent(c, WalletHistoryActivity::class.java)
-        ViewIntentContract.buildHistoryViewIntent(intent, event.walletId, event.bankName)
-
-        val contentIntent = PendingIntent.getActivity(c, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        val icon = BitmapFactory.decodeResource(c.resources, getCardIconResource(event.type))
-
-        val builder = NotificationCompat.Builder(c)
-                .setSmallIcon(getEventIcon(event.type))
-                .setLargeIcon(icon)
-                .setContentTitle(event.metadata.receiver)
-                .setContentText(c.resources.getString(getPaymentTypeLabel(event.type)))
-                .setSubText(event.changes.charged.toString())
-                .setColor(c.resources.getColor(R.color.success))
-                .setContentIntent(contentIntent)
-                .setWhen(event.date.toDateTime().millis)
-                .setPriority(NotificationCompat.PRIORITY_MAX)
-
-        return builder.build()
     }
 }
