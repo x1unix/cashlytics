@@ -1,5 +1,6 @@
 package com.x1unix.cashlytics.ui.history
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.x1unix.cashlytics.R

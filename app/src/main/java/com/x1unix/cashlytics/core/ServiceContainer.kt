@@ -17,7 +17,7 @@ class ServiceContainer(val context: Context) {
     /**
      * SMS Message processor
      */
-    private val messageProcessor = MessageProcessor.withHandlers(
+    val messageProcessor = MessageProcessor.withHandlers(
             KredoMessageParser()
     )
 
@@ -35,7 +35,7 @@ class ServiceContainer(val context: Context) {
     /**
      * Provides access to wallets information
      */
-    val wallets = WalletService(storage.wallet, messageProcessor)
+    val wallets = WalletService(storage.wallet, messageProcessor, storage.history)
 
     /**
      * Provides access to wallet history

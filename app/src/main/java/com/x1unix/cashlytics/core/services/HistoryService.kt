@@ -3,12 +3,12 @@ package com.x1unix.cashlytics.core.services
 import com.x1unix.cashlytics.core.payments.PaymentEvent
 import com.x1unix.cashlytics.core.storage.repository.HistoryRepository
 
-class HistoryService(private val repository: HistoryRepository) {
+class HistoryService(private val history: HistoryRepository) {
     /**
      * Returns all events of specified wallet
      */
     fun getWalletTimeline(walletId: String): List<PaymentEvent> {
-        return repository.getTimeline(walletId)
+        return history.getTimeline(walletId)
     }
 
     /**
@@ -20,6 +20,6 @@ class HistoryService(private val repository: HistoryRepository) {
             return e
         })
 
-        repository.bulkAdd(newItems)
+        history.bulkAdd(newItems)
     }
 }

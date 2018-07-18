@@ -23,6 +23,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.wallet.WalletImportActivity" />
+        <receiver android:name=".background.listeners.MessageListener">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

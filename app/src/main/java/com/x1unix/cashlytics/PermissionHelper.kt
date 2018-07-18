@@ -8,10 +8,10 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 
 class PermissionHelper (val context: Context) {
-    val GRANTED: Int
-        get() = 1
-
-    private val requiredPermissions = arrayOf<String>(Manifest.permission.READ_SMS)
+    private val requiredPermissions = arrayOf<String>(
+            Manifest.permission.READ_SMS,
+            Manifest.permission.RECEIVE_SMS
+    )
 
     val permissionsGranted : Boolean
         get() {
@@ -24,7 +24,11 @@ class PermissionHelper (val context: Context) {
         }
 
     fun requirePermissions(activity: Activity) {
-        ActivityCompat.requestPermissions(activity, requiredPermissions, GRANTED);
+        ActivityCompat.requestPermissions(activity, requiredPermissions, GRANTED)
+    }
+
+    companion object {
+        const val GRANTED = 1
     }
 
 }
