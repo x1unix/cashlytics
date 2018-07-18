@@ -20,7 +20,7 @@ import org.joda.time.format.DateTimeFormatter
  * @param wallets list
  */
 class WalletListAdapter(private var wallets: List<Wallet>, var clickListener: (Wallet) -> Unit): RecyclerView.Adapter<WalletListAdapter.WalletViewHolder>() {
-    private var fmt: DateTimeFormatter = DateTimeFormat.forPattern("dd MMM YYYY, k:m")
+    private var fmt: DateTimeFormatter = DateTimeFormat.forPattern("dd MMM YYYY, kk:mm")
 
     override fun getItemCount(): Int {
         return this.wallets.size

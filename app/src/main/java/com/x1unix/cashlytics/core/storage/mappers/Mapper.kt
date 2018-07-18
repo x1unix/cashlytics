@@ -1,9 +1,7 @@
 package com.x1unix.cashlytics.core.storage.mappers
 
+import com.couchbase.lite.*
 import com.couchbase.lite.Dictionary
-import com.couchbase.lite.Document
-import com.couchbase.lite.MutableDocument
-import com.couchbase.lite.Result
 import java.util.*
 
 /**
@@ -53,6 +51,11 @@ abstract class Mapper<T> {
         val data = doc.getDictionary(DATA)
 
         return unwrap(data, id)
+    }
+
+    fun applyUpdate(d: MutableDocument, changes: (dict: MutableDictionary) -> MutableDictionary) {
+        val dict = changes(d.getDictionary(DATA))
+        d.setDictionary(DATA, dict)
     }
 
     protected abstract fun unwrap(dict: Dictionary, itemId: String): T

@@ -39,7 +39,7 @@ public class RVHistoryFeedAdapter extends RecyclerView.Adapter<RVHistoryFeedAdap
     RVHistoryFeedAdapter(List<PaymentEvent> events) {
         this.events = events;
         currencyFormatter = NumberFormat.getCurrencyInstance(Locale.getDefault());
-        fmt = DateTimeFormat.forPattern("dd MMM YYYY, k:m");
+        fmt = DateTimeFormat.forPattern("dd MMM YYYY, kk:mm");
     }
 
     @Override

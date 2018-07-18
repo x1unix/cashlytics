@@ -53,7 +53,7 @@ class MessageListener: BroadcastReceiver() {
 
                 event.walletId = wallet.id
 
-                doAsync {
+                doAsync (exceptionHandler = {e: Throwable -> onError(e)}){
                     wallets.addWalletEvent(myWallets[sender]!!, event)
                 }
 
@@ -65,6 +65,10 @@ class MessageListener: BroadcastReceiver() {
         } catch (e: Exception) {
             Log.e(TAG, "Failed to inspect received message(s): ${e.message}")
         }
+    }
+
+    private fun onError(e: Throwable) {
+        Log.e(TAG, "Failed to update wallet status (${e.message})")
     }
 
     private fun getIncomingMessage(aObject: Any, bundle: Bundle): SmsMessage {

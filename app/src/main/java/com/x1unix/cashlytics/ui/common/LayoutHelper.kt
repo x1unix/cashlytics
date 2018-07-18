@@ -59,6 +59,8 @@ object LayoutHelper {
                 .setSubText(event.changes.charged.toString())
                 .setColor(c.resources.getColor(R.color.success))
                 .setContentIntent(contentIntent)
+                .setWhen(event.date.toDateTime().millis)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
 
         return builder.build()
     }

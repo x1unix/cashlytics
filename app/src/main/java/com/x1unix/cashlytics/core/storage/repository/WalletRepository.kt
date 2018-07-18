@@ -1,5 +1,6 @@
 package com.x1unix.cashlytics.core.storage.repository
 
+import android.util.Log
 import com.couchbase.lite.Document
 import com.couchbase.lite.Expression
 import com.couchbase.lite.Database
@@ -31,8 +32,13 @@ class WalletRepository(db: Database) : Repository<Wallet>(db) {
      */
     fun updateWalletStatus(walletId: String, lastModifiedTime: LocalDateTime, amount: Amount) {
         val document = database.getDocument(walletId).toMutable()
-        document.setDate(WalletMapper.DATE, lastModifiedTime.toDate())
-        document.setString(WalletMapper.STATUS, amount.toString())
+
+        mapper.applyUpdate(document) {
+            it.setDate(WalletMapper.DATE, lastModifiedTime.toDate())
+                    .setString(WalletMapper.STATUS, amount.toString())
+        }
+
+        Log.d("Wallet", "Wallet $walletId updated (newAmount: $amount)")
         database.save(document)
     }
 
