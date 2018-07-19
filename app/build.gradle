@@ -77,4 +77,5 @@ dependencies {
     // Kotlin Anko extensions
     compile "org.jetbrains.anko:anko-commons:${ankoVersion}"
     compile "org.jetbrains.anko:anko-design:${ankoVersion}"
+    implementation "com.android.support:design:${androidSupportVersion}"
 }

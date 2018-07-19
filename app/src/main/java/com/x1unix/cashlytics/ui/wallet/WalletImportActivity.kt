@@ -5,6 +5,7 @@ import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.x1unix.cashlytics.PermissionHelper
@@ -31,7 +32,7 @@ class WalletImportActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wallet_import)
-        setTitleFromResource(R.string.import_wallet)
+        setTitleFromResource(R.string.import_wallet, true)
 
         posterViewHolder = PosterViewHolder(poster)
         permissionsHelper = PermissionHelper(baseContext)
@@ -61,6 +62,17 @@ class WalletImportActivity : Activity() {
             resetPoster()
             getAvailableItems()
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     private fun onWalletClick(w: Wallet) {

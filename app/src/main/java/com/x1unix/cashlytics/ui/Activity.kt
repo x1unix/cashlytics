@@ -19,8 +19,8 @@ abstract class Activity : AppCompatActivity() {
         setContentView(R.layout.activity_wallets)
     }
 
-    protected fun setTitleFromResource(resourceId: Int) {
-        setTitle(resources.getString(resourceId))
+    protected fun setTitleFromResource(resourceId: Int, allowGoBack: Boolean = false) {
+        setTitle(resources.getString(resourceId), allowGoBack)
     }
 
     protected fun setTitle(title: String, allowGoBack: Boolean = false) {

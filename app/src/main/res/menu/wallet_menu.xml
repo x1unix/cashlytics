@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_wallet_import"
-        android:orderInCategory="100"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_add"
-        android:title="@string/import_wallet"/>
-    <item
         android:id="@+id/action_debug"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_adb"

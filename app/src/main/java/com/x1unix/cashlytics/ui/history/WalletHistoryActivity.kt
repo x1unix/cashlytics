@@ -3,6 +3,7 @@ package com.x1unix.cashlytics.ui.history
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MenuItem
 import com.x1unix.cashlytics.R
 import com.x1unix.cashlytics.ui.Activity
 import com.x1unix.cashlytics.ui.common.ViewIntentContract
@@ -26,6 +27,17 @@ class WalletHistoryActivity : Activity() {
             setTitle(bankName, true)
             loadWalletHistory(walletId)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     private fun initializeTransactionsView() {

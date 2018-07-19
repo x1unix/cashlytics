@@ -16,6 +16,7 @@ import com.x1unix.cashlytics.ui.common.ViewIntentContract
 import com.x1unix.cashlytics.ui.history.WalletHistoryActivity
 import com.x1unix.cashlytics.ui.wallet.WalletImportActivity.Companion.UPDATED
 import kotlinx.android.synthetic.main.activity_wallets.rvWallets
+import kotlinx.android.synthetic.main.activity_wallets.addWalletButton
 
 class WalletsActivity : Activity() {
 
@@ -39,6 +40,7 @@ class WalletsActivity : Activity() {
     }
 
     private fun prepareView() {
+        addWalletButton.setOnClickListener{ _ -> openImportWizard()}
         poster = findViewById(R.id.poster)
         posterViewHolder = PosterViewHolder(poster)
         val llm = LinearLayoutManager(this)
@@ -53,6 +55,7 @@ class WalletsActivity : Activity() {
         posterViewHolder.bind(poster)
 
         resetPoster()
+        hideView(addWalletButton)
 
         try {
             val wallets = services.wallets.getWallets()
@@ -64,6 +67,7 @@ class WalletsActivity : Activity() {
 
             posterViewHolder.hide()
             showView(rvWallets)
+            showView(addWalletButton)
 
             val adapter = WalletListAdapter(wallets) {
                 onWalletClick(it)
@@ -99,7 +103,6 @@ class WalletsActivity : Activity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item != null) {
             when (item.itemId) {
-                R.id.action_wallet_import -> openImportWizard()
                 R.id.action_debug -> onDebug()
             }
         }
