@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cashlytics</string>
+    <string name="app_name" translatable="false">Cashlytics</string>
     <string name="pick_bank_name">Pick a bank name</string>
     <string name="payment_type_icon">Payment type</string>
 

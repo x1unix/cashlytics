@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Cashlytics</string>
     <string name="pick_bank_name">Выберите банк</string>
     <string name="payment_type_icon">Тип транзакции</string>
 
