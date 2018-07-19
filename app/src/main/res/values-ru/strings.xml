@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Cashlytics</string>
+    <string name="pick_bank_name">Выберите банк</string>
+    <string name="payment_type_icon">Тип транзакции</string>
+
+    <string name="pt_unknown">Неизвестно</string>
+    <string name="pt_internet">Покупка в Интернете</string>
+    <string name="pt_purchase">Покупка</string>
+    <string name="pt_transfer">Перевод средств</string>
+    <string name="pt_withdrawal">Снятие наличных</string>
+    <string name="pt_refill">Пополнение счета</string>
+    <string name="pt_debit">Списание со счета</string>
+
+    <string name="my_wallets">Мои кошельки</string>
+    <string name="import_wallet">Добавить кошелёк</string>
+    <string name="no_items_to_display">Список пуст</string>
+    <string name="no_sms_found">Нет сообщений</string>
+    <string name="no_wallets_poster_text">Похоже, у вас еще нет добавленных кошельков</string>
+    <string name="cannot_read_sms">Не удалось прочитать сообщения</string>
+    <string name="sms_permissions_required">Требуется доступ к сообщениям</string>
+    <string name="sms_permissions_description">
+        Мы используем ваши сообщения чтобы получать информацию о вашем балансе.
+        Нажмите на кнопку ниже чтобы предоставить доступ.
+    </string>
+    <string name="provide_permissions">Дать доступ</string>
+    <string name="wallet_import_no_sms">Мы не нашли ни одного сообщения из банков, которые мы поддерживаем.</string>
+    <string name="add_new">Добавить новый</string>
+    <string name="more_info">Подробнее</string>
+    <string name="import_messages_title">Идет импорт данных</string>
+    <string name="import_messages_progress">Импортируем данные из сообщений, подождите пожалуйста</string>
+    <string name="wallet_import_error">Не удалось импортировать кошелёк</string>
+    <string name="wallet_fetch_error">Не удалось получить список кошёльков</string>
+</resources>
