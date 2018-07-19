@@ -56,6 +56,8 @@ class NotificationHelper(base: Context): ContextWrapper(base) {
                 .setColor(c.resources.getColor(R.color.success))
                 .setContentIntent(contentIntent)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setAutoCancel(true)
 //                .setWhen(event.date.toDateTime().millis)
 
         return builder.build()
