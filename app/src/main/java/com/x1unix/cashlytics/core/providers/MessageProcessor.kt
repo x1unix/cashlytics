@@ -7,7 +7,7 @@ import com.x1unix.cashlytics.core.payments.Wallet
 import javax.inject.Inject
 
 class MessageProcessor {
-    private var handlers = mutableMapOf<String, MessageParser>();
+    private var handlers = mutableMapOf<String, MessageParser>()
 
     fun registerHandlers(vararg parsers: MessageParser) {
         for (parser in parsers) {

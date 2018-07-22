@@ -16,7 +16,7 @@ const val TRANSACTION_PATTERN = """(KREDOBANK\s([A-Z\s]+))"""
 /**
  * Expected group size of matches from KREDO_TRANSACTION_PATTERN
  */
-const val TRANSACTION_GROUP_SZ = 2;
+const val TRANSACTION_GROUP_SZ = 2
 
 /**
  * Pattern for rest of payment actions.
@@ -38,6 +38,7 @@ const val INTERNET = "INTERNET"
 const val PURCHASE = "KUPIVLIA"
 const val DEBIT = "SPYSANIA"
 const val REFILL = "ZARAKHUVANIA"
+const val REVERT = "VIDMINA"
 
 /**
  * Extracts payment type and receiver information
@@ -58,7 +59,7 @@ class PaymentDataExtractor : MetadataExtractor<PaymentMetadata> {
             // Check if all data from regex is available
             val groupSize = transactionMatcher.groupCount()
             if (groupSize < TRANSACTION_GROUP_SZ) {
-                throw NoMatchFoundException("transaction pattern found, but expected group size is not correct ($groupSize)")
+                throw NoMatchFoundException("transaction pattern found, but expected group size is not correct ($groupSize)", message)
             }
 
             val paymentType = getPaymentType(transactionMatcher.group(2)) // Second group contains payment type
@@ -74,7 +75,7 @@ class PaymentDataExtractor : MetadataExtractor<PaymentMetadata> {
             // Check if all data from regex is available
             val groupSize = paymentMatcher.groupCount()
             if (groupSize < PAYMENT_GROUP_SZ) {
-                throw NoMatchFoundException("payment pattern found, but expected group size is not correct ($groupSize)")
+                throw NoMatchFoundException("payment pattern found, but expected group size is not correct ($groupSize)", message)
             }
 
             val paymentPrefix = paymentMatcher.group(3)
@@ -99,7 +100,7 @@ class PaymentDataExtractor : MetadataExtractor<PaymentMetadata> {
         }
 
         // Otherwise - throw an error
-        throw NoMatchFoundException("no any pattern match found for this message");
+        throw NoMatchFoundException("no any pattern match found for this message", message)
     }
 
     private fun getPaymentType(origin: String) : PaymentType {

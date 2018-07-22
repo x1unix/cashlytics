@@ -7,7 +7,8 @@ enum class PaymentType(val value: String) {
     Transfer("transfer"),
     Withdrawal("withdrawal"),
     Refill("refill"),
-    Debit("debit");
+    Debit("debit"),
+    Revert("revert");
 
     companion object {
         fun fromString(value: String): PaymentType {

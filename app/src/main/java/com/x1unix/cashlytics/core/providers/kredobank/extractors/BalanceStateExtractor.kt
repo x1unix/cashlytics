@@ -76,7 +76,7 @@ class BalanceStateExtractor: MetadataExtractor<BalanceChange> {
         defaultCurrency = INITIAL_DEFAULT_CURRENCY
 
         if (currentAmountIndex == 0) {
-            throw NoMatchFoundException("Cannot find any balance information in string")
+            throw NoMatchFoundException("Cannot find any balance information in string", message)
         }
 
         return MetadataParseResult(balanceChange, message, message)
