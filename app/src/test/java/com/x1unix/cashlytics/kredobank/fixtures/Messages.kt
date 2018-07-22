@@ -7,9 +7,14 @@ object Messages {
     const val InternetPurchase = "INTERNET GOOGLE *Google Music, GB 59.00UAH CARD**2111 ZALISHOK 22805.84 UAH OVER 50000.00  DOSTUPNO 72805.84UAH"
     const val Refill = "ZARAKHUVANIA 65789.14UAH CARD**2111 ZALISHOK 27723.75 UAH OVER 50000.00 UAH DOSTUPNO 77723.75UAH"
     const val Debit = "KREDOBANK SPYSANIA 193.08UAH CARD**2111 ZALISHOK 27530.67 UAH OVERDRAFT 50000.00 UAH DOSTUPNO 77530.67UAH"
+    const val Revert = "KREDOBANK VIDMINA ROZRAKHUNOK V POS-TERMINALI CARD **** 2111  SUMA: 92.00 UAH BALANCE: 51217.47 UAH"
 
     fun withDate(dateString: String, message: String) : String
     {
         return "$dateString $message"
+    }
+
+    fun withDateAlt(date: String, time: String, message: String) : String {
+        return "DATE $date, TIME $time:$message"
     }
 }
