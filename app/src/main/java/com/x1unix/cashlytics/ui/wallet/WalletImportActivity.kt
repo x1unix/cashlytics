@@ -10,6 +10,8 @@ import android.view.View
 import android.widget.Toast
 import com.x1unix.cashlytics.PermissionHelper
 import com.x1unix.cashlytics.R
+import com.x1unix.cashlytics.core.exceptions.DataParseException
+import com.x1unix.cashlytics.core.exceptions.ParseException
 import com.x1unix.cashlytics.core.payments.PaymentEvent
 import com.x1unix.cashlytics.core.payments.Wallet
 import com.x1unix.cashlytics.ui.Activity
@@ -103,8 +105,14 @@ class WalletImportActivity : Activity() {
     }
 
     private fun onError(ex: Throwable) {
-        toast(R.string.wallet_import_error)
-        Log.e(TAG, "Failed to import the wallet - ${ex.message}")
+        runOnUiThread {
+            toast(R.string.wallet_import_error)
+            Log.e(TAG, "Failed to import the wallet - ${ex.message}")
+
+            if (ex is ParseException) {
+                Log.d(TAG, "Failed to parse message chunk: '${ex.source}'")
+            }
+        }
     }
 
     private fun getAvailableItems() {
