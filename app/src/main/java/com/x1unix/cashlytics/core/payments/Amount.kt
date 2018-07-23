@@ -3,7 +3,7 @@ package com.x1unix.cashlytics.core.payments
 import com.couchbase.lite.Dictionary
 import com.couchbase.lite.MutableDictionary
 
-data class Amount(val amount: Double, val currency: String) {
+data class Amount(var amount: Double, var currency: String) {
     override fun toString(): String {
         return amount.toString() + " " + currency
     }

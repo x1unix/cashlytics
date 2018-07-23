@@ -53,8 +53,7 @@ class WalletListAdapter(private var wallets: List<Wallet>, var clickListener: (W
         private val description = itemView.findViewById<TextView>(R.id.dataSource)
         private val displayedDate = itemView.findViewById<TextView>(R.id.lastPaymentDate)
         private val amount = itemView.findViewById<TextView>(R.id.amount)
-        private val successColor = ContextCompat.getColor(itemView.context, R.color.danger)
-        private val dangerColor = ContextCompat.getColor(itemView.context, R.color.success)
+        private val dangerColor = ContextCompat.getColor(itemView.context, R.color.danger)
 
         fun setBankName(label: String) {
             bankName.text = label

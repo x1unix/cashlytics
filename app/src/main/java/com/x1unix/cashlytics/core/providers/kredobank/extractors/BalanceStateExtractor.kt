@@ -20,7 +20,7 @@ import java.util.regex.Pattern
  *
  * ([\d]+\.[\d]+([A-Z]{1,3})?)
  */
-private const val BALANCE_STATE_REGEXP = "(([\\d]+\\.[\\d]+)+([A-Z]{1,3})?(\\s[A-Z]{1,3}+)?)"
+private const val BALANCE_STATE_REGEXP = """(([\-\d]+\.[\d]+)+([\-A-Z]{1,3})?(\s[\-A-Z]{1,3}+)?)"""
 
 /**
  * Charged amount regex group

@@ -31,17 +31,22 @@ class BankingMessagesService(var context: Context, var messageProcessor: Message
         val processor = messageProcessor.getProviderProcessor(providerName)
         return getProviderMessages(providerName)
                 .map{i: Message -> processor.parseMessage(i.contents)}
-                .sortedWith(compareBy{it.date})
     }
 
     /**
-     * Gets all SMS messages from bank SMS conversation
+     * Gets all SMS messages from bank SMS conversation sorted by date
      *
      * @param providerName Bank name
      */
     fun getProviderMessages(providerName: String): MutableSet<Message> {
         val messagesQuery = Uri.parse("content://sms/inbox")
-        val cursor = context.contentResolver.query(messagesQuery, null, "address like '%$providerName%'", null, null)
+        val cursor = context.contentResolver.query(
+                messagesQuery,
+                null,
+                "address like '%$providerName%'",
+                null,
+                "${Telephony.TextBasedSmsColumns.DATE} DESC"
+        )
 
         return constructMessages(cursor)
     }
@@ -62,7 +67,7 @@ class BankingMessagesService(var context: Context, var messageProcessor: Message
             message: Message -> messageProcessor.hasHandlerFor(message.sender)
         }.map (fun (m: Message): Wallet {
             val provider = messageProcessor.getProviderProcessor(m.sender)
-            return Wallet.fromEvent(provider.parseMessage(m.contents))
+            return provider.buildWallet(provider.parseMessage(m.contents), this@BankingMessagesService)
                     .setBrandIconResource(provider.brandIcon)
         })
     }

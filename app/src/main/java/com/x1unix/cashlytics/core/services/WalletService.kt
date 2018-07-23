@@ -26,6 +26,9 @@ class WalletService (private val repository: WalletRepository, private val proc:
         event.walletId = walletId
 
         history.addItem(event)
-        repository.updateWalletStatus(walletId, event.date, event.changes.left!!)
+
+        if (proc.getProviderProcessor(event.bankName).onWalletUpdate(event)) {
+            repository.updateWalletStatus(walletId, event.date, event.changes.left!!)
+        }
     }
 }
