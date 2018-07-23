@@ -19,7 +19,7 @@ class DateExtractor : MetadataExtractor<LocalDateTime> {
 
     val formatter = DateTimeFormat.forPattern(KREDO_DATE_FORMAT)
 
-    override fun extractData(message: String) : MetadataParseResult<LocalDateTime> {
+    override fun extractData(message: String, baseDataOnly: Boolean) : MetadataParseResult<LocalDateTime> {
         val matcher = this.matcher.matcher(message)
 
         if ((!matcher.find()) || (matcher.groupCount() == 0)) {

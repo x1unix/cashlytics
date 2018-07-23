@@ -16,7 +16,7 @@ class PaymentMetadataExtractorTest {
     @Test
     fun parseInternetPurchase() {
         val expected = PaymentMetadata(PaymentType.Internet, "GOOGLE *Google Music")
-        val result = extractor.extractData(Messages.InternetPurchase)
+        val result = extractor.extractData(Messages.InternetPurchase, false)
 
         assertEquals(result.result, expected)
     }
@@ -24,7 +24,7 @@ class PaymentMetadataExtractorTest {
     @Test
     fun parseOfflinePurchase() {
         val expected = PaymentMetadata(PaymentType.Purchase, "MAGAZINPRODUKTIVARSEN")
-        val result = extractor.extractData(Messages.Purchase)
+        val result = extractor.extractData(Messages.Purchase, false)
 
         assertEquals(result.result, expected)
     }
@@ -32,7 +32,7 @@ class PaymentMetadataExtractorTest {
     @Test
     fun parseTransfer() {
         val expected = PaymentMetadata(PaymentType.Transfer, BANK_NAME)
-        val result = extractor.extractData(Messages.Transfer)
+        val result = extractor.extractData(Messages.Transfer, false)
 
         assertEquals(result.result, expected)
     }
@@ -40,7 +40,7 @@ class PaymentMetadataExtractorTest {
     @Test
     fun parseWithdrawal() {
         val expected = PaymentMetadata(PaymentType.Withdrawal, BANK_NAME)
-        val result = extractor.extractData(Messages.Withdrawal)
+        val result = extractor.extractData(Messages.Withdrawal, false)
 
         assertEquals(result.result, expected)
     }
@@ -48,7 +48,7 @@ class PaymentMetadataExtractorTest {
     @Test
     fun parseRefill() {
         val expected = PaymentMetadata(PaymentType.Refill, BANK_NAME)
-        val result = extractor.extractData(Messages.Refill)
+        val result = extractor.extractData(Messages.Refill, false)
 
         assertEquals(result.result, expected)
     }
@@ -56,7 +56,7 @@ class PaymentMetadataExtractorTest {
     @Test
     fun parseDebit() {
         val expected = PaymentMetadata(PaymentType.Debit, BANK_NAME)
-        val result = extractor.extractData(Messages.Debit)
+        val result = extractor.extractData(Messages.Debit, false)
 
         assertEquals(result.result, expected)
     }
@@ -64,7 +64,7 @@ class PaymentMetadataExtractorTest {
     @Test
     fun parseRevert() {
         val expected = PaymentMetadata(PaymentType.Revert, BANK_NAME)
-        val result = extractor.extractData(Messages.Revert)
+        val result = extractor.extractData(Messages.Revert, false)
 
         assertEquals(result.result, expected)
     }

@@ -10,8 +10,9 @@ interface MetadataExtractor<out T> {
      * Extracts data from message (sub)string
      *
      * @param message message
+     * @param baseDataOnly Extract only base data
      * @throws com.x1unix.cashlytics.exceptions.NoMatchFoundException
      * @return Metadata parse result with additional information
      */
-    fun extractData(message: String) : MetadataParseResult<T>
+    fun extractData(message: String, baseDataOnly: Boolean) : MetadataParseResult<T>
 }

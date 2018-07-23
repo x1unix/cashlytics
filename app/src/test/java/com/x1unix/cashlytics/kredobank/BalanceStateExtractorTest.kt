@@ -13,7 +13,7 @@ class BalanceStateExtractorTest {
         val message = Balance.Transfer
         val expected = Balance.TransferChange
 
-        val parseResult = extractor.extractData(message)
+        val parseResult = extractor.extractData(message, false)
         val got = parseResult.result
 
         assertEquals(expected, got)
@@ -24,7 +24,7 @@ class BalanceStateExtractorTest {
         val message = Balance.Withdrawal
         val expected = Balance.WithdrawalChange
 
-        val parseResult = extractor.extractData(message)
+        val parseResult = extractor.extractData(message, false)
         val got = parseResult.result
 
         assertEquals(expected, got)
@@ -35,7 +35,7 @@ class BalanceStateExtractorTest {
         val message = Balance.Purchase
         val expected = Balance.PurchaseChange
 
-        val parseResult = extractor.extractData(message)
+        val parseResult = extractor.extractData(message, false)
         val got = parseResult.result
 
         assertEquals(expected, got)
@@ -46,7 +46,7 @@ class BalanceStateExtractorTest {
         val message = Balance.InternetPurchase
         val expected = Balance.InternetPurchaseChange
 
-        val parseResult = extractor.extractData(message)
+        val parseResult = extractor.extractData(message, false)
         val got = parseResult.result
 
         assertEquals(expected, got)
@@ -57,7 +57,7 @@ class BalanceStateExtractorTest {
         val message = Balance.Refill
         val expected = Balance.RefillChange
 
-        val parseResult = extractor.extractData(message)
+        val parseResult = extractor.extractData(message, false)
         val got = parseResult.result
 
         assertEquals(expected, got)
@@ -68,10 +68,19 @@ class BalanceStateExtractorTest {
         val message = Balance.Debit
         val expected = Balance.DebitChange
 
-        val parseResult = extractor.extractData(message)
+        val parseResult = extractor.extractData(message, false)
         val got = parseResult.result
 
         assertEquals(expected, got)
     }
 
+    @Test
+    fun parseBalanceFromRevertMessage() {
+        val message = Balance.Revert
+        val expected = Balance.RevertChange
+        val parseResult = extractor.extractData(message, true)
+        val got = parseResult.result
+
+        assertEquals(expected, got)
+    }
 }

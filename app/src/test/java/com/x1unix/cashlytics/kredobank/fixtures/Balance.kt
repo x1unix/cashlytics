@@ -12,6 +12,10 @@ object Balance {
     const val InternetPurchase = ", GB 59.00UAH CARD**2111 ZALISHOK 22805.84 UAH OVER 50000.00  DOSTUPNO 72805.84UAH"
     const val Refill = "65789.14UAH CARD**2111 ZALISHOK 27723.75 UAH OVER 50000.00 UAH DOSTUPNO 77723.75UAH"
     const val Debit = "193.08UAH CARD**2111 ZALISHOK 27530.67 UAH OVERDRAFT 45000.00 UAH DOSTUPNO 77530.67UAH"
+    const val Revert = "-TERMINALI CARD **** 2111  SUMA: 92.00 UAH BALANCE: 51217.47 UAH"
+
+    val RevertChange: BalanceChange
+        get() = BalanceChange(uah(92.00))
 
     val TransferChange: BalanceChange
         get() = BalanceChange(uah(1000.0), uah(26174.35), uah(50000.0), uah(76174.35))

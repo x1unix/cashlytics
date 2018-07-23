@@ -19,7 +19,7 @@ class DateExtractorTest {
         val expectedSubstring = message.substring(expected.length).trim()
 
         try {
-            val result = extractor.extractData(message)
+            val result = extractor.extractData(message, false)
 
             // Check for correct date output
             assertEquals(expected, fmt.print(result.result))
@@ -42,7 +42,7 @@ class DateExtractorTest {
         val fmt = extractor.formatter
 
         try {
-            val result = extractor.extractData(message)
+            val result = extractor.extractData(message, false)
             assertEquals(expected, fmt.print(result.result))
         } catch (ex: ParseException) {
             fail("failed to parse date '${ex.source}': ${ex.message}")

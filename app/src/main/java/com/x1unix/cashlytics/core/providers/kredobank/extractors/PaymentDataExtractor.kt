@@ -51,7 +51,7 @@ class PaymentDataExtractor : MetadataExtractor<PaymentMetadata> {
 
     private val paymentPattern = Pattern.compile(PAYMENT_PATTERN)
 
-    override fun extractData(message: String) : MetadataParseResult<PaymentMetadata> {
+    override fun extractData(message: String, baseDataOnly: Boolean) : MetadataParseResult<PaymentMetadata> {
         val transactionMatcher = transactionPattern.matcher(message)
 
         // Detect bank transaction action

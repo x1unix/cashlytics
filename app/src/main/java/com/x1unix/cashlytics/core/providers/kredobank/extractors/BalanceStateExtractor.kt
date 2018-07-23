@@ -54,21 +54,34 @@ class BalanceStateExtractor: MetadataExtractor<BalanceChange> {
     private val balanceStatePattern = Pattern.compile(BALANCE_STATE_REGEXP)
     private var defaultCurrency = INITIAL_DEFAULT_CURRENCY
 
-    override fun extractData(message: String): MetadataParseResult<BalanceChange> {
+    override fun extractData(message: String, baseDataOnly: Boolean): MetadataParseResult<BalanceChange> {
         val matcher = balanceStatePattern.matcher(message)
         val balanceChange = BalanceChange()
 
         var currentAmountIndex = CHARGED
 
-        while (matcher.find()) {
-            val amount = extractBalanceFromMatch(matcher, currentAmountIndex)
-
-            when (currentAmountIndex) {
-                CHARGED -> balanceChange.charged = amount
-                LEFT -> balanceChange.left = amount
-                OVERDRAFT -> balanceChange.overdraft = amount
-                AVAILABLE -> balanceChange.available = amount
+        if (baseDataOnly) {
+            // Extract only charged amount
+            if (!matcher.find() || matcher.groupCount() < 2) {
+                throw NoMatchFoundException("No match found for regex match for amount")
             }
+
+            val amount = matcher.group(2)
+            val currency = matcher.group(4)
+
+            balanceChange.charged = Amount(amount.toDouble(), currency.trim())
+            return MetadataParseResult(balanceChange, message, message)
+        }
+
+        // Otherwise - extract all data
+        while (matcher.find()) {
+           val amount = extractBalanceFromMatch(matcher, currentAmountIndex)
+           when (currentAmountIndex) {
+               CHARGED -> balanceChange.charged = amount
+               LEFT -> balanceChange.left = amount
+               OVERDRAFT -> balanceChange.overdraft = amount
+               AVAILABLE -> balanceChange.available = amount
+           }
             currentAmountIndex++
         }
 
