@@ -66,8 +66,7 @@ public class RVHistoryFeedAdapter extends RecyclerView.Adapter<RVHistoryFeedAdap
         eventViewHolder.setIcon(getCardIconResource(pt));
         eventViewHolder.setPaymentTypeLabel(getPaymentTypeLabel(pt));
 
-        String amount = formatChargedAmount(event.getChanges().getCharged(), pt);
-        eventViewHolder.setChangedAmount(amount, amount.startsWith("-"));
+        eventViewHolder.setChangedAmount(event.getChanges().getCharged(), pt);
 
         eventViewHolder.setDate(formatEventDate(event.getDate()));
 
@@ -80,18 +79,6 @@ public class RVHistoryFeedAdapter extends RecyclerView.Adapter<RVHistoryFeedAdap
 
     private String formatEventDate(LocalDateTime dt) {
         return fmt.print(dt);
-    }
-
-    private String formatChargedAmount(Amount amount, PaymentType type) {
-        double saldo = amount.getAmount();
-
-        if (type != PaymentType.Refill) {
-            saldo = saldo * -1;
-        }
-
-        return Double.toString(saldo) + " " + amount.getCurrency();
-//        currencyFormatter.setCurrency(Currency.getInstance(amount.getCurrency()));
-//        return currencyFormatter.format(saldo);
     }
 
     /**
@@ -113,6 +100,8 @@ public class RVHistoryFeedAdapter extends RecyclerView.Adapter<RVHistoryFeedAdap
                 return R.string.pt_refill;
             case Debit:
                 return R.string.pt_debit;
+            case Revert:
+                return R.string.pt_revert;
             default:
                 return R.string.pt_unknown;
         }
@@ -133,6 +122,8 @@ public class RVHistoryFeedAdapter extends RecyclerView.Adapter<RVHistoryFeedAdap
                 return R.drawable.ic_pa_purchase;
             case Withdrawal:
                 return R.drawable.ic_pa_withdrawal;
+            case Revert:
+                return R.drawable.ic_pa_revert;
             default:
                 return R.drawable.ic_pa_common;
         }
@@ -172,8 +163,16 @@ public class RVHistoryFeedAdapter extends RecyclerView.Adapter<RVHistoryFeedAdap
             icon.setImageResource(resourceId);
         }
 
-        public void setChangedAmount(String newAmount, boolean isNegative) {
-            changedAmount.setText(newAmount);
+        public void setChangedAmount(Amount newAmount, PaymentType pt) {
+            double saldo = newAmount.getAmount();
+
+            boolean isNegative = (pt != PaymentType.Refill) && (pt != PaymentType.Revert);
+
+            String text = isNegative ? "-" : "";
+
+            text += Double.toString(saldo) + " " + newAmount.getCurrency();
+
+            changedAmount.setText(text);
             changedAmount.setTextColor(isNegative ? dangerColor : successColor);
         }
 

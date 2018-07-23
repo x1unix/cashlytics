@@ -18,6 +18,7 @@ object LayoutHelper {
             PaymentType.Purchase -> R.drawable.ic_cart
             PaymentType.Transfer -> R.drawable.ic_send
             PaymentType.Withdrawal -> R.drawable.ic_up
+            PaymentType.Revert -> R.drawable.ic_restore
             else -> R.drawable.ic_dollar
         }
     }
@@ -30,6 +31,7 @@ object LayoutHelper {
             PaymentType.Withdrawal -> R.string.pt_withdrawal
             PaymentType.Refill -> R.string.pt_refill
             PaymentType.Debit -> R.string.pt_debit
+            PaymentType.Revert -> R.string.pt_revert
             else -> R.string.pt_unknown
         }
     }
@@ -40,6 +42,7 @@ object LayoutHelper {
             PaymentType.Internet -> R.drawable.ic_pa_web
             PaymentType.Purchase -> R.drawable.ic_pa_purchase
             PaymentType.Withdrawal -> R.drawable.ic_pa_withdrawal
+            PaymentType.Revert -> R.drawable.ic_pa_revert
             else -> R.drawable.ic_pa_common
         }
     }

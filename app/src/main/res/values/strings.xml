@@ -10,6 +10,7 @@
     <string name="pt_withdrawal">Withdrawal</string>
     <string name="pt_refill">Refill</string>
     <string name="pt_debit">Debit</string>
+    <string name="pt_revert">Revert funds</string>
 
     <string name="my_wallets">My wallets</string>
     <string name="import_wallet">Import a wallet</string>

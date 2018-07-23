@@ -9,6 +9,7 @@
     <string name="pt_withdrawal">Снятие наличных</string>
     <string name="pt_refill">Пополнение счета</string>
     <string name="pt_debit">Списание со счета</string>
+    <string name="pt_revert">Отмена</string>
 
     <string name="my_wallets">Мои кошельки</string>
     <string name="import_wallet">Добавить кошелёк</string>
