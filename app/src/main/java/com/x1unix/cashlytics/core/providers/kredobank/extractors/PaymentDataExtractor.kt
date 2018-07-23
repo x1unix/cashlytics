@@ -27,7 +27,7 @@ const val PAYMENT_PATTERN = """(((\w+){1}(.+)),\s)"""
 /**
  * Expected group size of matches from PAYMENT_PATTERN
  */
-const val PAYMENT_GROUP_SZ = 2;
+const val PAYMENT_GROUP_SZ = 2
 
 const val BANK_NAME = "KREDOBANK"
 
@@ -56,6 +56,14 @@ class PaymentDataExtractor : MetadataExtractor<PaymentMetadata> {
 
         // Detect bank transaction action
         if (transactionMatcher.find()) {
+            // Check if it's a 'revert' payment type
+            if (message.contains(REVERT)) {
+                // It the message is a REVERT message, just return a prepared action response
+                val metadata = PaymentMetadata(PaymentType.Revert, BANK_NAME)
+                return MetadataParseResult(metadata, transactionMatcher.group(0), message)
+            }
+            // Otherwise - continue all other routines:
+
             // Check if all data from regex is available
             val groupSize = transactionMatcher.groupCount()
             if (groupSize < TRANSACTION_GROUP_SZ) {

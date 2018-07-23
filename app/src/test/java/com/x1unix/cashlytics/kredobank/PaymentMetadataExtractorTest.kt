@@ -61,5 +61,13 @@ class PaymentMetadataExtractorTest {
         assertEquals(result.result, expected)
     }
 
+    @Test
+    fun parseRevert() {
+        val expected = PaymentMetadata(PaymentType.Revert, BANK_NAME)
+        val result = extractor.extractData(Messages.Revert)
+
+        assertEquals(result.result, expected)
+    }
+
 
 }
