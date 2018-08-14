@@ -75,7 +75,7 @@ dependencies {
     implementation 'com.couchbase.lite:couchbase-lite-android:2.0.0'
 
     // Kotlin Anko extensions
-    compile "org.jetbrains.anko:anko-commons:${ankoVersion}"
-    compile "org.jetbrains.anko:anko-design:${ankoVersion}"
+    implementation "org.jetbrains.anko:anko-commons:${ankoVersion}"
+    implementation "org.jetbrains.anko:anko-design:${ankoVersion}"
     implementation "com.android.support:design:${androidSupportVersion}"
 }
