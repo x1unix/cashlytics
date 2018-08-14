@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.x1unix.cashlytics.BuildConfig
 import com.x1unix.cashlytics.R
 import com.x1unix.cashlytics.core.payments.Wallet
 import com.x1unix.cashlytics.ui.Activity
@@ -139,8 +140,11 @@ class WalletsActivity : Activity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.wallet_menu, menu)
-        return true
+        if (BuildConfig.DEBUG) {
+            menuInflater.inflate(R.menu.wallet_menu, menu)
+            return true
+        }
+        return false
     }
 
     override fun onStop() {
