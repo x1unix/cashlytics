@@ -7,6 +7,13 @@ apply plugin: 'kotlin-android-extensions'
 project.ext {
     androidSupportVersion = '27.1.1'
     ankoVersion = '0.10.4'
+
+    versionMajor = 0
+    versionMinor = 2
+    versionPatch = 0
+    versionClassifier = null
+    isSnapshot = false
+    minimumSdkVersion = 19
 }
 
 android {
@@ -15,8 +22,8 @@ android {
         applicationId "com.x1unix.cashlytics"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 1
-        versionName "0.1.0"
+        versionCode generateVersionCode()
+        versionName generateVersionName()
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -36,11 +43,6 @@ android {
             useSupportLibrary = true
         }
     }
-
-    // Sounds good, doesn't work
-//    dataBinding {
-//        enabled = true
-//    }
 }
 
 
@@ -78,4 +80,21 @@ dependencies {
     implementation "org.jetbrains.anko:anko-commons:${ankoVersion}"
     implementation "org.jetbrains.anko:anko-design:${ankoVersion}"
     implementation "com.android.support:design:${androidSupportVersion}"
+}
+
+
+private Integer generateVersionCode() {
+    return ext.minimumSdkVersion * 10000000 + ext.versionMajor * 10000 + ext.versionMinor * 100 + ext.versionPatch
+}
+
+private String generateVersionName() {
+    String versionName = "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
+    if (ext.versionClassifier == null && ext.isSnapshot) {
+        ext.versionClassifier = "SNAPSHOT"
+    }
+
+    if (ext.versionClassifier != null) {
+        versionName += "-" + ext.versionClassifier
+    }
+    return versionName;
 }
