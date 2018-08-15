@@ -45,11 +45,8 @@ class NotificationHelper(base: Context): ContextWrapper(base) {
         ViewIntentContract.buildHistoryViewIntent(intent, event.walletId, event.bankName)
 
         val contentIntent = PendingIntent.getActivity(c, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        val icon = BitmapFactory.decodeResource(c.resources, LayoutHelper.getCardIconResource(event.type))
 
-        val builder = getBuilder(c)
-                .setSmallIcon(getEventIcon(event.type))
-                .setLargeIcon(icon)
+        var builder = getBuilder(c)
                 .setContentTitle(event.metadata.receiver)
                 .setContentText(c.resources.getString(LayoutHelper.getPaymentTypeLabel(event.type)))
                 .setSubText(event.changes.charged.toString())
@@ -58,7 +55,16 @@ class NotificationHelper(base: Context): ContextWrapper(base) {
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setAutoCancel(true)
-//                .setWhen(event.date.toDateTime().millis)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val icon = BitmapFactory.decodeResource(c.resources, LayoutHelper.getCardIconResource(event.type))
+
+            builder = builder.setSmallIcon(getEventIcon(event.type))
+                    .setLargeIcon(icon)
+
+        } else {
+            builder = builder.setSmallIcon(R.mipmap.ic_launcher)
+        }
 
         return builder.build()
     }

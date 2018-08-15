@@ -13,7 +13,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.x1unix.cashlytics"
-        minSdkVersion 23
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "0.1.0"
