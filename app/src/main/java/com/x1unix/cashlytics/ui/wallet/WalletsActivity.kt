@@ -2,6 +2,7 @@ package com.x1unix.cashlytics.ui.wallet
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
@@ -18,8 +19,9 @@ import com.x1unix.cashlytics.ui.history.WalletHistoryActivity
 import com.x1unix.cashlytics.ui.wallet.WalletImportActivity.Companion.UPDATED
 import kotlinx.android.synthetic.main.activity_wallets.rvWallets
 import kotlinx.android.synthetic.main.activity_wallets.addWalletButton
+import kotlinx.android.synthetic.main.activity_wallets.swipeRefresh
 
-class WalletsActivity : Activity() {
+class WalletsActivity : Activity(), SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var posterViewHolder: PosterViewHolder
 
@@ -47,6 +49,14 @@ class WalletsActivity : Activity() {
         val llm = LinearLayoutManager(this)
         rvWallets.layoutManager = llm
         resetPoster()
+        swipeRefresh.setOnRefreshListener(this)
+        swipeRefresh.setColorSchemeColors(resources.getColor(R.color.gold))
+    }
+
+    override fun onRefresh() {
+        swipeRefresh.isRefreshing = true
+        onWalletFetch()
+        swipeRefresh.isRefreshing = false
     }
 
     private fun onWalletFetch() {
@@ -67,7 +77,7 @@ class WalletsActivity : Activity() {
             }
 
             posterViewHolder.hide()
-            showView(rvWallets)
+            showView(swipeRefresh)
             showView(addWalletButton)
 
             val adapter = WalletListAdapter(wallets) {
@@ -78,7 +88,7 @@ class WalletsActivity : Activity() {
 
         } catch (ex: Throwable) {
             Log.e(TAG, ex.message)
-            hideView(rvWallets)
+            hideView(swipeRefresh)
             posterViewHolder.setTitle(R.string.wallet_fetch_error)
             posterViewHolder.setText(ex.message)
             posterViewHolder.setIcon(R.drawable.ic_error)
