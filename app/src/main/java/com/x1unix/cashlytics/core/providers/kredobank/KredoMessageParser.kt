@@ -1,5 +1,6 @@
 package com.x1unix.cashlytics.core.providers.kredobank
 
+import android.util.Log
 import com.x1unix.cashlytics.R
 import com.x1unix.cashlytics.core.messages.BankingMessagesService
 import com.x1unix.cashlytics.core.payments.Amount
@@ -23,6 +24,7 @@ class KredoMessageParser : MessageParser {
     private val balanceStateExtractor = BalanceStateExtractor()
 
     override fun parseMessage(message: String): PaymentEvent {
+        Log.d("Cashlytics", "Parsing message '" + message + "'");
         // Stage 1: Get date and time
         val parsedDate = dateExtractor.extractData(message, false)
         val date = parsedDate.result

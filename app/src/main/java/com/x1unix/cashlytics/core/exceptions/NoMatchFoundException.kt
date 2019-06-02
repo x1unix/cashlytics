@@ -1,5 +1,5 @@
 package com.x1unix.cashlytics.core.exceptions
 
-class NoMatchFoundException(message: String, source: String): ParseException(message, source) {
-    constructor(message: String) : this(message, "undefined")
+class NoMatchFoundException(message: String, val data: String, source: String): ParseException(message + " in '${data}'", source) {
+
 }

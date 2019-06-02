@@ -63,7 +63,7 @@ class BalanceStateExtractor: MetadataExtractor<BalanceChange> {
         if (baseDataOnly) {
             // Extract only charged amount
             if (!matcher.find() || matcher.groupCount() < 2) {
-                throw NoMatchFoundException("No match found for regex match for amount")
+                throw NoMatchFoundException("No match found for regex match for amount", message, BANK_NAME)
             }
 
             val amount = matcher.group(2)
@@ -89,7 +89,7 @@ class BalanceStateExtractor: MetadataExtractor<BalanceChange> {
         defaultCurrency = INITIAL_DEFAULT_CURRENCY
 
         if (currentAmountIndex == 0) {
-            throw NoMatchFoundException("Cannot find any balance information in string", message)
+            throw NoMatchFoundException("Cannot find any balance information in string", message, BANK_NAME)
         }
 
         return MetadataParseResult(balanceChange, message, message)
@@ -126,6 +126,6 @@ class BalanceStateExtractor: MetadataExtractor<BalanceChange> {
             return Amount(amount.toDouble(), currency.trim())
         }
 
-        throw NoMatchFoundException("No match found for regex match for amount type $matchIndex")
+        throw NoMatchFoundException("No match found for regex match for amount type $matchIndex", "", BANK_NAME)
     }
 }

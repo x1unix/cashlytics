@@ -67,7 +67,7 @@ class PaymentDataExtractor : MetadataExtractor<PaymentMetadata> {
             // Check if all data from regex is available
             val groupSize = transactionMatcher.groupCount()
             if (groupSize < TRANSACTION_GROUP_SZ) {
-                throw NoMatchFoundException("transaction pattern found, but expected group size is not correct ($groupSize)", message)
+                throw NoMatchFoundException("transaction pattern found, but expected group size is not correct ($groupSize)", message, BANK_NAME)
             }
 
             val paymentType = getPaymentType(transactionMatcher.group(2)) // Second group contains payment type
@@ -83,7 +83,7 @@ class PaymentDataExtractor : MetadataExtractor<PaymentMetadata> {
             // Check if all data from regex is available
             val groupSize = paymentMatcher.groupCount()
             if (groupSize < PAYMENT_GROUP_SZ) {
-                throw NoMatchFoundException("payment pattern found, but expected group size is not correct ($groupSize)", message)
+                throw NoMatchFoundException("payment pattern found, but expected group size is not correct ($groupSize)", message, BANK_NAME)
             }
 
             val paymentPrefix = paymentMatcher.group(3)
@@ -108,7 +108,7 @@ class PaymentDataExtractor : MetadataExtractor<PaymentMetadata> {
         }
 
         // Otherwise - throw an error
-        throw NoMatchFoundException("no any pattern match found for this message", message)
+        throw NoMatchFoundException("no any pattern match found for this message", message, BANK_NAME)
     }
 
     private fun getPaymentType(origin: String) : PaymentType {

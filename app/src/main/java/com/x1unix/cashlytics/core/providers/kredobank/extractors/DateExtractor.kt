@@ -46,7 +46,7 @@ class DateExtractor : MetadataExtractor<LocalDateTime> {
         val matcher = altMatcher.matcher(message)
 
         if ((!matcher.find()) || (matcher.groupCount() < ALT_DATE_GROUP_SZ)) {
-            throw NoMatchFoundException("Cannot extract date metadata from the message", message)
+            throw NoMatchFoundException("Cannot extract date metadata from the message", message, BANK_NAME)
         }
 
         val date = matcher.group(1)
